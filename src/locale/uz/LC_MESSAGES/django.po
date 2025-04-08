@@ -1,0 +1,200 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-01-08 11:40+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: .\elon\settings.py:131
+msgid "Russian"
+msgstr ""
+
+#: .\elon\settings.py:132
+msgid "Uzbek"
+msgstr ""
+
+msgid "my_ads_text"
+msgstr "Mening e’lonlarim"
+
+msgid "active_ads"
+msgstr "Aktiv e’lonlar"
+
+msgid "wait_ads"
+msgstr "Tekshiruvdagi e’lonlar"
+
+msgid "refused_ads"
+msgstr "Rad etilgan e’lonlar"
+
+msgid "not_ads"
+msgstr "Нет рекламы"
+
+msgid "do_advertising"
+msgstr "Reklama qilish"
+
+msgid "edit_ads"
+msgstr "Tahrirlash"
+
+msgid "Selling"
+msgstr "Avtomobil sotish - oson!"
+
+msgid "Selling_desc"
+msgstr "E’loningizni 10 000 dan ortiq xaridorlar kutmoqda"
+
+msgid "ads_addd"
+msgstr "E’lon berish"
+
+msgid "new_ad"
+msgstr "Yangi e'lon"
+
+msgid "category_name"
+msgstr "Kategoriya"
+
+msgid "mark_name"
+msgstr "Markalar"
+
+msgid "popular_mark"
+msgstr "Mashhur markalar"
+
+msgid "everyone_mark"
+msgstr "Barcha markalar"
+
+msgid "search_mark"
+msgstr "Marka bo’yicha qidirish"
+
+msgid "model_name"
+msgstr "Modellar"
+
+msgid "positsion_name"
+msgstr "Pozitsiya"
+
+msgid "continue"
+msgstr "Davom etish"
+
+msgid "description_name"
+msgstr "Ma'lumotlar"
+
+msgid "description"
+msgstr "Mashinangizni afzalliklari va kamchiliklari haqida tog’ri va halol ma’lumot bering"
+
+msgid "photos"
+msgstr "Rasmlar"
+
+msgid "photos_upload"
+msgstr "Rasmlarni yuklash"
+
+msgid "price"
+msgstr "Narx"
+
+msgid "torg_yes"
+msgstr "Kami bor"
+
+msgid "yes"
+msgstr "Ha"
+
+msgid "no"
+msgstr "yo'q"
+
+msgid "region"
+msgstr "Manzil"
+
+msgid "everyone_region"
+msgstr "Barcha viloyatlar"
+
+msgid "search_region"
+msgstr "Shahar bo’yicha qidirish"
+
+msgid "select_disc"
+msgstr "Tuman tanlang"
+
+msgid "phone_number"
+msgstr "Telefon raqam"
+
+msgid "phone_number_desc"
+msgstr "Mijozlar shu telefon raqam orqali siz bilan bog’lanishadi"
+
+msgid "phone_number_add"
+msgstr "Qo’shimcha raqam qo’shish"
+
+msgid "view_ad"
+msgstr "E’loningiz ko’rinishi"
+
+msgid "send_checked"
+msgstr "Tekshiruvga jo’natish"
+
+msgid "thaks_your_ad"
+msgstr "Rahmat! e’loningiz tekshiruv uchun jo’natildi"
+
+msgid "my_ads"
+msgstr "Mening e’lonlarim"
+
+msgid "wait_ad"
+msgstr "Tekshiruvdagi e’lonlar"
+
+msgid "wait"
+msgstr "Tekshiruvda"
+
+msgid "what_for"
+msgstr "Nima uchun?"
+
+msgid "refused_ad"
+msgstr "Rad etildi"
+
+msgid "hot_offers"
+msgstr "Qaynoq takliflar"
+
+msgid "search"
+msgstr "Qidiruv"
+
+msgid "searched_ad"
+msgstr "e’lon topildi"
+
+msgid "ads"
+msgstr "E'lonlar"
+
+msgid "ads_not"
+msgstr "Barcha e’lonlar ro’xyati bo’sh"
+
+msgid "from"
+msgstr "Dan"
+
+msgid "to"
+msgstr "Gacha"
+
+msgid "show_result"
+msgstr "Natijani ko’rsatish"
+
+msgid "favourite_ad"
+msgstr "Sevimli e’lonlar"
+
+msgid "not_favourite_ads"
+msgstr "Sevimli e’lonlar ro’yhati bo’sh"
+
+msgid "delete"
+msgstr "O’chirish"
+
+msgid "delete_favourite_ad"
+msgstr "Sevimli e’lonlardan o’chirildi"
+
+msgid "add_ad"
+msgstr "E’lon qo’shish"
+
+msgid "welcome"
+msgstr "#Xush kelibsiz"
+
+
+
+
+

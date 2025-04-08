@@ -1,0 +1,200 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-01-08 11:40+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: .\elon\settings.py:131
+msgid "Russian"
+msgstr ""
+
+#: .\elon\settings.py:132
+msgid "Uzbek"
+msgstr ""
+
+msgid "my_ads_text"
+msgstr "Мои объявления"
+
+msgid "active_ads"
+msgstr "Активные объявления"
+
+msgid "wait_ads"
+msgstr "Ожидающие объявление"
+
+msgid "refused_ads"
+msgstr "Отклоненные объявления"
+
+msgid "not_ads"
+msgstr "Нет рекламы"
+
+msgid "do_advertising"
+msgstr "Делать рекламу"
+
+msgid "edit_ads"
+msgstr "редактировать"
+
+msgid "was_rejected"
+msgstr "Было отказано"
+
+msgid "Selling"
+msgstr "Продать автомобиль легко!"
+
+msgid "Selling_desc"
+msgstr "Более 10 000 покупателей ждут вашей рекламы"
+
+msgid "ads_addd"
+msgstr "Объявление"
+
+msgid "new_ad"
+msgstr "Новое объявление"
+
+msgid "category_name"
+msgstr "Категория"
+
+msgid "mark_name"
+msgstr "Марки"
+
+msgid "popular_mark"
+msgstr "Популярные Марки"
+
+msgid "everyone_mark"
+msgstr "Все Марки"
+
+msgid "search_mark"
+msgstr "Поиск по Марки"
+
+msgid "model_name"
+msgstr "Модели"
+
+msgid "positsion_name"
+msgstr "Позиция"
+
+msgid "continue"
+msgstr "Продолжать"
+
+msgid "description_name"
+msgstr "Данные"
+
+msgid "description"
+msgstr "Дайте точную и честную информацию о преимуществах и недостатках вашего автомобиля"
+
+msgid "photos"
+msgstr "Картинки"
+
+msgid "photos_upload"
+msgstr "Загрузить фотографии"
+
+msgid "price"
+msgstr "Цена"
+
+msgid "torg_yes"
+msgstr "Есть меньше"
+
+msgid "yes"
+msgstr "Да"
+
+msgid "no"
+msgstr "Hет"
+
+msgid "region"
+msgstr "Адрес"
+
+msgid "everyone_region"
+msgstr "Все регионы"
+
+msgid "search_region"
+msgstr "Поиск по городу"
+
+msgid "select_disc"
+msgstr "Выберите район"
+
+msgid "phone_number"
+msgstr "Номер телефона"
+
+msgid "phone_number_desc"
+msgstr "Клиенты будут связываться с вами по этому номеру телефона"
+
+msgid "phone_number_add"
+msgstr "Добавить дополнительный номер"
+
+msgid "view_ad"
+msgstr "просмотр объявления"
+
+msgid "send_checked"
+msgstr "Отправить на проверку"
+
+msgid "thaks_your_ad"
+msgstr "Спасибо! Ваше объявление отправлено на проверку"
+
+msgid "my_ads"
+msgstr "Мои объявления"
+
+msgid "wait_ad"
+msgstr "Реклама под следствием"
+
+msgid "wait"
+msgstr "При осмотре"
+
+msgid "what_for"
+msgstr "Зачем?"
+
+msgid "refused_ad"
+msgstr "Отклоненный"
+
+msgid "hot_offers"
+msgstr "Горячие предложения"
+
+msgid "search"
+msgstr "Поиск"
+
+msgid "searched_ad"
+msgstr "объявление найдено"
+
+msgid "ads"
+msgstr "Объявления"
+
+msgid "ads_not"
+msgstr "Все объявления пусты"
+
+msgid "from"
+msgstr "Из"
+
+msgid "to"
+msgstr "До"
+
+msgid "show_result"
+msgstr "Показать результат"
+
+msgid "favourite_ad"
+msgstr "Избранные объявления"
+
+msgid "not_favourite_ads"
+msgstr "Список избранных объявлений пуст"
+
+msgid "delete"
+msgstr "Выключать"
+
+msgid "delete_favourite_ad"
+msgstr "Удалено из избранного"
+
+msgid "add_ad"
+msgstr "Добавить объявление"
+
+msgid "welcome"
+msgstr "#добро пожаловать"

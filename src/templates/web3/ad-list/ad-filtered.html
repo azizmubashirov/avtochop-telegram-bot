@@ -1,0 +1,239 @@
+{% extends 'web3/base.html'%}
+{% load static %}
+{% load i18n %}
+{% block content %} 
+
+<div class="wrapper">
+    <section class="section__control">
+        <div class="general__container">
+            <div class="control">
+                <a onclick="history.go(-1)" class="control__back">
+                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.5 10L12.5 15L17.5 20" stroke="#FF1700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+                <!-- /.control__back -->
+                <h3 class="control__name general-DB">{% if LANGUAGE_CODE == 'uz' %}{{category_name.title_uz }}{% else %}{{category_name.title_ru}}{% endif %}</h3>
+                <button type="button" class="control__close">
+                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 10L20 20" stroke="#FF1700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M20 10L10 20" stroke="#FF1700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            <!-- /.progress -->
+        </div>
+        <!-- /.general__container -->
+    </section>
+    <!-- /.section__progress -->
+
+    <section class="section__filter">
+        <div class="general__container">
+            <div class="filter__container">
+                <a href="{% url 'web3:ad-filter' category_id=category_id %}" class="filter__btn">
+                    <span class="filter__txt general-R">{% translate 'search' %}</span>
+                    <!-- /.filter__txt -->
+                    <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3.33333 7V5" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M3.33333 17.0003V9.66699" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M7.99984 12.3333V5" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M7.99984 17V15" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12.6668 7V5" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12.6668 17.0003V9.66699" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M4.27614 7.39052C4.79684 7.91122 4.79684 8.75544 4.27614 9.27614C3.75545 9.79684 2.91122 9.79684 2.39052 9.27614C1.86983 8.75545 1.86983 7.91122 2.39052 7.39052C2.91122 6.86983 3.75544 6.86983 4.27614 7.39052" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8.94265 12.7235C9.46335 13.2442 9.46335 14.0885 8.94265 14.6092C8.42195 15.1299 7.57773 15.1299 7.05703 14.6092C6.53633 14.0885 6.53633 13.2442 7.05703 12.7235C7.57773 12.2028 8.42195 12.2028 8.94265 12.7235" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M13.6096 7.39052C14.1303 7.91122 14.1303 8.75544 13.6096 9.27614C13.0889 9.79684 12.2447 9.79684 11.724 9.27614C11.2033 8.75545 11.2033 7.91122 11.724 7.39052C12.2447 6.86983 13.0889 6.86983 13.6096 7.39052" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="16.5" cy="2.5" r="2.5" fill="#FF1700"/>
+                    </svg>
+                </a>
+                <!-- /.filter__btn -->
+                <a href="#" class="filter__link">
+                    <span class="filter__txt general-R">{% if LANGUAGE_CODE == 'uz' %}{{category_name.title_uz }}{% else %}{{category_name.title_ru}}{% endif %}</span>
+                    <!-- /.filter__txt -->
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.3335 7.33325L14.6668 14.6666" stroke="#040404" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M14.6668 7.33325L7.3335 14.6666" stroke="#040404" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+                <!-- /.filter__link -->
+
+                <!-- <a href="" class="filter__link">
+                    <span class="filter__txt general-R">Butun O’zbekiston</span>
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.3335 7.33325L14.6668 14.6666" stroke="#040404" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M14.6668 7.33325L7.3335 14.6666" stroke="#040404" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a> -->
+                
+                <!-- /.filter__link -->
+            </div>
+            <!-- /.filter -->
+            <p class="filter__result general-DB">
+                <span id="filter__result">{{ads.items|length }}</span>
+                {% translate 'searched_ad' %}
+                <!-- /#filter__result -->
+            </p>
+            <!-- /.filter__result -->
+        </div>
+        <!-- /.general__container -->
+    </section>
+    <!-- /.section__filter -->
+
+    <section class="section__add">
+        <div class="general__container">
+            <h2 class="general__title">{% translate 'ads' %}</h2>
+            <!-- /.general__title -->
+            {% if not ads.items %}
+            <div class="add__null" >
+                <img src="{% static 'web3/img/bg/bg-favorite.svg'%}" alt="null">
+                <p class="general-L">{% translate 'ads_not' %}</p>
+                <!-- /.general -->
+            </div>
+            {% else  %}
+            <!-- /.favorite__active -->
+            <div class="add">
+                {% for ad in ads.items %}
+                <div class="add__item">
+                    <div class="add__pic">
+                        <!-- /.favorite__rate -->
+                        <img src="{{ ad.images.0 }}" class="add__car" alt="">
+                        {% if ad.favourite == True %}
+                            <a href="#" onclick="LikedFun('{{ad.id}}', this)" class="add__liked liked">
+                                <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M15.1254 10.8972L15.1326 10.9048L10 15.932L4.86736 10.9048L4.87462 10.8972C4.27858 10.2166 3.96715 9.34049 4.00275 8.4445C4.03835 7.54851 4.41833 6.69879 5.06656 6.06561C5.71479 5.43244 6.58338 5.06258 7.49827 5.03016C8.41316 4.99774 9.30676 5.30515 10 5.89079C10.6933 5.30515 11.5869 4.99774 12.5018 5.03016C13.4166 5.06258 14.2852 5.43244 14.9334 6.06561C15.5817 6.69879 15.9616 7.54851 15.9972 8.4445C16.0329 9.34049 15.7214 10.2166 15.1254 10.8972Z" fill="white"/>
+                                </svg>
+                            </a>
+                        {% else %}
+                            <a href="#" onclick="LikedFun('{{ad.id}}', this)" class="add__liked">
+                                <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M11.4636 6.33582L11.3853 6.42522L6.71437 11.0001L2.04343 6.42523L1.96512 6.33581C1.45259 5.75058 1.18625 4.99921 1.21671 4.23241C1.24718 3.46559 1.57239 2.73631 2.13028 2.19137C2.68849 1.64613 3.43841 1.32597 4.23033 1.29791C5.02228 1.26985 5.79426 1.53611 6.39171 2.04081L6.71437 2.31338L7.03703 2.04081C7.63448 1.53611 8.40646 1.26985 9.19842 1.29791C9.99032 1.32597 10.7403 1.64614 11.2984 2.19135L11.2984 2.19138C11.8563 2.7363 12.1815 3.46557 12.212 4.23243C12.2425 4.9992 11.9761 5.75058 11.4636 6.33582Z" stroke="white"/>
+                                </svg>
+                                    
+                            </a>
+                            <!-- /.liked -->
+                        {% endif %}
+                        <div class="add__images">
+                            <svg width="9" height="10" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4.5 6.75879C4.96875 6.75879 5.36725 6.59479 5.6955 6.26679C6.0235 5.93854 6.1875 5.54004 6.1875 5.07129C6.1875 4.60254 6.0235 4.20404 5.6955 3.87579C5.36725 3.54779 4.96875 3.38379 4.5 3.38379C4.03125 3.38379 3.63275 3.54779 3.3045 3.87579C2.9765 4.20404 2.8125 4.60254 2.8125 5.07129C2.8125 5.54004 2.9765 5.93854 3.3045 6.26679C3.63275 6.59479 4.03125 6.75879 4.5 6.75879ZM1.5 8.07129C1.29375 8.07129 1.11725 7.99791 0.9705 7.85116C0.8235 7.70416 0.75 7.52754 0.75 7.32129V2.82129C0.75 2.61504 0.8235 2.43854 0.9705 2.29179C1.11725 2.14479 1.29375 2.07129 1.5 2.07129H2.68125L3.375 1.32129H5.625L6.31875 2.07129H7.5C7.70625 2.07129 7.88287 2.14479 8.02987 2.29179C8.17663 2.43854 8.25 2.61504 8.25 2.82129V7.32129C8.25 7.52754 8.17663 7.70416 8.02987 7.85116C7.88287 7.99791 7.70625 8.07129 7.5 8.07129H1.5Z" fill="white"/>
+                            </svg>
+                            <span class="general-R">{{ad.images|length }}</span>
+                        </div>
+                        <!-- /.favorite__images -->
+                    </div>
+                    <!-- /.favorite__pic -->
+                    <div class="add__content">
+                        <a href="{% url 'web3:ad-view' ad_id=ad.id %}" class="add__name">{{ad.title}}</a>
+                        <!-- /.favorite__name -->
+                        <p class="add__price general-DB">{{ad.prices.narx}}
+                        {% if ad.currency == 1%}so'm
+                        {% elif ad.currency == 2%} y.e
+                        {% endif %} 
+                        </p>
+                        <!-- /.favorite__price -->
+                        <div class="add__row">
+                            <p class="add__date general-R">{{ad.created_at.uz}}</p>
+                            <!-- /.favorite__date -->
+                            <div class="add__views">
+                                <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8.82605 7.1077C9.55793 7.83924 9.55793 9.02683 8.82605 9.75962C8.09418 10.4912 6.90605 10.4912 6.17293 9.75962C5.44105 9.02808 5.44105 7.84049 6.17293 7.1077C6.90605 6.37491 8.09355 6.37491 8.82605 7.1077" stroke="#A0A0A0" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M1.875 8.43209C1.875 8.0204 1.97 7.61309 2.15375 7.23764V7.23764C3.10062 5.30289 5.19313 4.05908 7.5 4.05908C9.80687 4.05908 11.8994 5.30289 12.8463 7.23764V7.23764C13.03 7.61309 13.125 8.0204 13.125 8.43209C13.125 8.84378 13.03 9.25109 12.8463 9.62655V9.62655C11.8994 11.5613 9.80687 12.8051 7.5 12.8051C5.19313 12.8051 3.10062 11.5613 2.15375 9.62655V9.62655C1.97 9.25109 1.875 8.84378 1.875 8.43209Z" stroke="#A0A0A0" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <p class="add__view">{{ad.views_count}}</p>
+                                <!-- /.favorite__view -->
+                            </div>
+                            <!-- /.favorite__views -->
+                        </div>
+                        <!-- /.favorite__row -->
+                    </div>
+                    <!-- /.favorite__content -->
+                </div>
+                {% endfor %}
+            </div>
+            <!-- /.favorite -->
+            {% endif %}
+        </div>
+        <!-- /.general__container -->
+    </section>
+
+    <div class="popup__back"></div>
+    <!-- /.popup__back -->
+    <div class="popup">
+        <span class="close">
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 10L20 20" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M20 10L10 20" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </span>
+        <!-- /.close -->
+        <form action="" class="popup__config">
+            <div class="popup__list">
+                <label for="d-1" class="popup__config-checkbox general__list-item">
+                    <input type="radio" id="d-1" name="v-1">
+                    <span class="general__circle">
+                        <img src="/img/cars/1.png" alt="">
+                    </span>
+                    <!-- /.general__search -->
+                    <span class="general__name">Avtomobillar</span>
+                    <!-- /.general__name -->
+                    <span class="general__checked">
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18.3334 5.9585L8.25008 16.0418L3.66675 11.4585" stroke="#3994FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                    <!-- /.general__checked -->
+                </label>
+            </div>
+            <!-- /.popup__list -->
+            <button class="general__next searching__result">Saqlash</button>
+        </form>
+        <!-- /.popup__container -->
+    </div>
+    <!-- /.section__favorite -->
+
+</div>
+<!-- /.wrapper -->
+{% endblock content %}
+{% block javascript %}
+<script>
+    $('.filter__link').click(function(){
+        console.log(window.location.href);
+        $.ajax({
+        url: `{% url 'web3:category-view' category_id=category_id user_id=request.user.id %}`,
+        method: 'GET',
+        dataType: 'html',
+        data: { 'category': true},
+        success: function(data){
+            $('.popup__config').html(data)
+            $('.popup__back').slideDown('200');
+            setTimeout(()=> {
+                $('.popup').fadeIn('200');
+            }, 250)
+        }
+    });
+    })
+</script>
+<script>
+    function LikedFun(id, this_data) {
+        if(this_data.classList.contains('liked')){
+            this_data.classList.remove('liked');
+            var svg = `<svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.4636 6.33582L11.3853 6.42522L6.71437 11.0001L2.04343 6.42523L1.96512 6.33581C1.45259 5.75058 1.18625 4.99921 1.21671 4.23241C1.24718 3.46559 1.57239 2.73631 2.13028 2.19137C2.68849 1.64613 3.43841 1.32597 4.23033 1.29791C5.02228 1.26985 5.79426 1.53611 6.39171 2.04081L6.71437 2.31338L7.03703 2.04081C7.63448 1.53611 8.40646 1.26985 9.19842 1.29791C9.99032 1.32597 10.7403 1.64614 11.2984 2.19135L11.2984 2.19138C11.8563 2.7363 12.1815 3.46557 12.212 4.23243C12.2425 4.9992 11.9761 5.75058 11.4636 6.33582Z" stroke="white"/>
+                    </svg>`
+            $(this_data).html(svg)
+        }else{
+            this_data.classList.add('liked');
+            var svg = `<svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15.1254 10.8972L15.1326 10.9048L10 15.932L4.86736 10.9048L4.87462 10.8972C4.27858 10.2166 3.96715 9.34049 4.00275 8.4445C4.03835 7.54851 4.41833 6.69879 5.06656 6.06561C5.71479 5.43244 6.58338 5.06258 7.49827 5.03016C8.41316 4.99774 9.30676 5.30515 10 5.89079C10.6933 5.30515 11.5869 4.99774 12.5018 5.03016C13.4166 5.06258 14.2852 5.43244 14.9334 6.06561C15.5817 6.69879 15.9616 7.54851 15.9972 8.4445C16.0329 9.34049 15.7214 10.2166 15.1254 10.8972Z" fill="white"/>
+                    </svg>`
+            $(this_data).html(svg)
+        };
+        $.ajax({
+            url: window.location.origin + "/api/v1/items/favourites/?ad=" + id + "&user=" + '{{request.user.id}}',
+            method: 'POST',
+            success: function(data){
+            }
+        });
+        
+    }
+</script>
+{% endblock javascript %}

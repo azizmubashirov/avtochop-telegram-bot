@@ -1,0 +1,174 @@
+{% extends 'web3/base.html'%}
+{% load static %}
+{% load i18n %}
+{% block content %}
+
+<div class="wrapper">
+    <section class="section__control">
+        <div class="general__container">
+            <div class="control">
+                <h3 class="control__name general-DB">{% translate 'favourite_ad' %}</h3>
+                <!-- /.control__back -->
+                <button type="button" class="control__close">
+                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 10L20 20" stroke="#FF1700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M20 10L10 20" stroke="#FF1700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            <!-- /.progress -->
+        </div>
+        <!-- /.general__container -->
+    </section>
+    <!-- /.section__progress -->
+
+    <section class="section__favorite">
+        <div class="general__container">
+            <h2 class="general__title">{% translate 'favourite_ad' %}</h2>
+            <!-- /.general__title -->
+            {% if not ads.items %}
+            <div class="favorite__null">
+                <img src="{% static 'web3/img/bg/bg-processes.svg'%}" alt="null">
+                <p class="general-L">{% translate 'not_favourite_ads' %}</p>
+                <!-- /.general -->
+                <a href="{% url 'web3:ads-create' user_id=user_id %}" class="favorite__add general__next">{% translate 'add_ad' %}</a>
+                <!-- /.favorite__add -->
+            </div>
+            {% else %}
+            <!-- /.favorite__active -->
+            <div class="favorite">
+                {% for ad in ads.items %}
+                <div class="favorite__item">
+                    <div class="favorite__pic">
+                       
+                        <!-- /.favorite__rate -->
+                        <img src="{{ ad.images.0 }}" class="favorite__car" alt="">
+                        <a class="favorite__liked">
+                            <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15.1254 10.8972L15.1326 10.9048L10 15.932L4.86736 10.9048L4.87462 10.8972C4.27858 10.2166 3.96715 9.34049 4.00275 8.4445C4.03835 7.54851 4.41833 6.69879 5.06656 6.06561C5.71479 5.43244 6.58338 5.06258 7.49827 5.03016C8.41316 4.99774 9.30676 5.30515 10 5.89079C10.6933 5.30515 11.5869 4.99774 12.5018 5.03016C13.4166 5.06258 14.2852 5.43244 14.9334 6.06561C15.5817 6.69879 15.9616 7.54851 15.9972 8.4445C16.0329 9.34049 15.7214 10.2166 15.1254 10.8972Z" fill="white"/>
+                            </svg>
+                        </a>
+                        <!-- /.liked -->
+                        <div class="favorite__images">
+                            <svg width="9" height="10" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4.5 6.75879C4.96875 6.75879 5.36725 6.59479 5.6955 6.26679C6.0235 5.93854 6.1875 5.54004 6.1875 5.07129C6.1875 4.60254 6.0235 4.20404 5.6955 3.87579C5.36725 3.54779 4.96875 3.38379 4.5 3.38379C4.03125 3.38379 3.63275 3.54779 3.3045 3.87579C2.9765 4.20404 2.8125 4.60254 2.8125 5.07129C2.8125 5.54004 2.9765 5.93854 3.3045 6.26679C3.63275 6.59479 4.03125 6.75879 4.5 6.75879ZM1.5 8.07129C1.29375 8.07129 1.11725 7.99791 0.9705 7.85116C0.8235 7.70416 0.75 7.52754 0.75 7.32129V2.82129C0.75 2.61504 0.8235 2.43854 0.9705 2.29179C1.11725 2.14479 1.29375 2.07129 1.5 2.07129H2.68125L3.375 1.32129H5.625L6.31875 2.07129H7.5C7.70625 2.07129 7.88287 2.14479 8.02987 2.29179C8.17663 2.43854 8.25 2.61504 8.25 2.82129V7.32129C8.25 7.52754 8.17663 7.70416 8.02987 7.85116C7.88287 7.99791 7.70625 8.07129 7.5 8.07129H1.5Z" fill="white"/>
+                            </svg>
+                            <span class="general-R">{{ad.images|length }}</span>
+                        </div>
+                        <!-- /.favorite__images -->
+                    </div>
+                    <!-- /.favorite__pic -->
+                    <div class="favorite__content">
+                        <a href="" class="favorite__name">{{ad.title}}</a>
+                        <!-- /.favorite__name -->
+                        <p class="favorite__price general-DB">{{ad.prices.narx}}
+                            {% if ad.currency == 1%}so'm
+                            {% elif ad.currency == 2%} y.e
+                            {% endif %}
+                         </p>
+                        <!-- /.favorite__price -->
+                        <div class="favorite__row">
+                            <p class="favorite__date general-R">{{ad.created_at.uz}}</p>
+                            <!-- /.favorite__date -->
+                            <div class="favorite__views">
+                                <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8.82605 7.1077C9.55793 7.83924 9.55793 9.02683 8.82605 9.75962C8.09418 10.4912 6.90605 10.4912 6.17293 9.75962C5.44105 9.02808 5.44105 7.84049 6.17293 7.1077C6.90605 6.37491 8.09355 6.37491 8.82605 7.1077" stroke="#A0A0A0" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M1.875 8.43209C1.875 8.0204 1.97 7.61309 2.15375 7.23764V7.23764C3.10062 5.30289 5.19313 4.05908 7.5 4.05908C9.80687 4.05908 11.8994 5.30289 12.8463 7.23764V7.23764C13.03 7.61309 13.125 8.0204 13.125 8.43209C13.125 8.84378 13.03 9.25109 12.8463 9.62655V9.62655C11.8994 11.5613 9.80687 12.8051 7.5 12.8051C5.19313 12.8051 3.10062 11.5613 2.15375 9.62655V9.62655C1.97 9.25109 1.875 8.84378 1.875 8.43209Z" stroke="#A0A0A0" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <p class="favorite__view">{{ad.views_count}}</p>
+                                <!-- /.favorite__view -->
+                            </div>
+                            <!-- /.favorite__views -->
+                        </div>
+                        <!-- /.favorite__row -->
+                        <button type="button" class="favorite__btn">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.9915 1.6665C5.3915 1.6665 1.6665 5.39984 1.6665 9.99984C1.6665 14.5998 5.3915 18.3332 9.9915 18.3332C14.5998 18.3332 18.3332 14.5998 18.3332 9.99984C18.3332 5.39984 14.5998 1.6665 9.9915 1.6665ZM13.3332 13.3332C13.2561 13.4104 13.1645 13.4717 13.0637 13.5135C12.9629 13.5553 12.8548 13.5769 12.7457 13.5769C12.6365 13.5769 12.5285 13.5553 12.4276 13.5135C12.3268 13.4717 12.2353 13.4104 12.1582 13.3332L9.4165 10.5915C9.33776 10.5143 9.27512 10.4223 9.23221 10.3207C9.18929 10.2192 9.16696 10.1101 9.1665 9.99984V6.6665C9.1665 6.20817 9.5415 5.83317 9.99984 5.83317C10.4582 5.83317 10.8332 6.20817 10.8332 6.6665V9.65817L13.3332 12.1582C13.6582 12.4832 13.6582 13.0082 13.3332 13.3332Z" fill="#FF1700"/>
+                                <path d="M13.3332 13.3332C13.2561 13.4104 13.1645 13.4717 13.0637 13.5135C12.9629 13.5553 12.8548 13.5769 12.7457 13.5769C12.6365 13.5769 12.5285 13.5553 12.4276 13.5135C12.3268 13.4717 12.2353 13.4104 12.1582 13.3332L9.4165 10.5915C9.33776 10.5143 9.27512 10.4223 9.23221 10.3207C9.18929 10.2192 9.16696 10.1101 9.1665 9.99984V6.6665C9.1665 6.20817 9.5415 5.83317 9.99984 5.83317C10.4582 5.83317 10.8332 6.20817 10.8332 6.6665V9.65817L13.3332 12.1582C13.6582 12.4832 13.6582 13.0082 13.3332 13.3332Z" fill="#FF1700"/>
+                                <path d="M6.88911 13.8891L6.11133 13.1113L9.22244 10.0002L6.11133 6.88911L6.88911 6.11133L10.0002 9.22244L13.1113 6.11133L13.8891 6.88911L10.778 10.0002L13.8891 13.1113L13.1113 13.8891L10.0002 10.778L6.88911 13.8891Z" fill="white"/>
+                            </svg>
+                            <span class="general-M" onclick="LikedFun('{{ad.id}}', '{{ ad.images.0 }}', '{{ad.title}}', '{{ad.created_at.uz}}')" >{% translate 'delete' %}</span>
+                        </button>
+                    </div>
+                    <!-- /.favorite__content -->
+                </div>
+                <!-- /.favorite__item -->
+                {% endfor %}
+                <!-- /.favorite__item -->
+
+            </div>
+            {% endif %}
+            <!-- /.favorite -->
+        </div>
+        <!-- /.general__container -->
+    </section>
+    <!-- /.section__favorite -->
+
+    <div class="popup__back"></div>
+    <!-- /.popup__back -->
+    <div class="popup">
+        <span class="close" id="close-modal">
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 10L20 20" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M20 10L10 20" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </span>
+        <!-- /.close -->
+        <form action="" class="popup__container">
+            <div class="popup__row">
+                <div class="popup__pic">
+                    <img src="" id="popup__pic" alt="">
+                </div>
+                <!-- /.popup__pic -->
+                <div class="popup__content">
+                    <h3 class="popup__price general-DB" id="popup__price"></h3>
+                    <!-- /.popup__price -->
+                    <p class="popup__name general-M" id="popup__name"></p>
+                    <input type="text" id="input-ad-id" style="display: none;" value="">
+                    <!-- /.popup__name -->
+                    <p class="popup__info general-M">
+                        <span id="popup__year"></span>,
+                        <span id="popup__km"></span>
+                    </p>
+                    <!-- /.popup__info -->
+                    <p class="popup__txt general-R">{% translate 'delete_favourite_ad' %}</p>
+                    <!-- /.popup__success -->
+                </div>
+                <!-- /.popup__content -->
+            </div>
+            <!-- /.popup__row -->
+        </form>
+        <!-- /.popup__container -->
+    </div>
+    <!-- /.popup -->
+
+</div>
+<!-- /.wrapper -->
+
+{% endblock content %}
+{% block javascript %}
+<script>
+    function LikedFun(id, image, title, date) {
+        $("#popup__pic").attr("src", image);
+        $('#popup__name').html(title)
+        $('#popup__year').html(date)
+        $('#input-ad-id').attr('value', id)
+        $('.popup__back').slideDown('200');
+        setTimeout(()=> {
+            $('.popup').fadeIn('200');
+        }, 250)
+    }
+</script>
+<script>
+     $('#close-modal').click(function(){
+        var id = document.getElementById("input-ad-id").value
+        $.ajax({
+        url: window.location.origin + "/api/v1/items/favourites/?ad=" + id + "&user=" + '{{request.user.id}}',
+        method: 'POST',
+        success: function(data){
+            location.reload();
+        }
+        });
+    });
+</script>
+{% endblock javascript %}

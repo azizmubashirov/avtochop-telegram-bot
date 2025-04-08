@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Eelon</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <style>
+            * {
+              box-sizing: border-box;
+            }
+
+            body {
+              font: 16px Arial;
+            }
+
+            /*the container must be positioned relative:*/
+            .autocomplete {
+              position: relative;
+              display: inline-block;
+            }
+
+            input {
+              border: 1px solid transparent;
+              background-color: #f1f1f1;
+              padding: 10px;
+              font-size: 16px;
+            }
+
+            input[type=text] {
+              background-color: #f1f1f1;
+              width: 100%;
+            }
+
+            input[type=submit] {
+              background-color: DodgerBlue;
+              color: #fff;
+              cursor: pointer;
+            }
+
+            .autocomplete-items {
+              position: absolute;
+              border: 1px solid #d4d4d4;
+              border-bottom: none;
+              border-top: none;
+              z-index: 99;
+              /*position the autocomplete items to be the same width as the container:*/
+              top: 100%;
+              left: 0;
+              right: 0;
+            }
+
+            .autocomplete-items div {
+              padding: 10px;
+              cursor: pointer;
+              background-color: #fff;
+              border-bottom: 1px solid #d4d4d4;
+            }
+
+            /*when hovering an item:*/
+            .autocomplete-items div:hover {
+              background-color: #e9e9e9;
+            }
+
+            /*when navigating through the items using the arrow keys:*/
+            .autocomplete-active {
+              background-color: DodgerBlue !important;
+              color: #ffffff;
+            }
+        </style>
+    </head>
+    <body>
+        <form id="id-search-form" method="GET">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input class="form-control" id="myInput" type="text" name="myInput" placeholder="Search">
+                            </div>
+                        </div>
+                        <div class="col-md-4"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="id-ads-list"></div>
+        </form>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script>
+            function autocomplete(inp, arr) {
+              var currentFocus;
+              inp.addEventListener("input", function(e) {
+                  var a, b, i, val = this.value;
+                  closeAllLists();
+                  if (!val) { return false;}
+                  currentFocus = -1;
+                  a = document.createElement("DIV");
+                  a.setAttribute("id", this.id + "autocomplete-list");
+                  a.setAttribute("class", "autocomplete-items");
+                  this.parentNode.appendChild(a);
+                  for (i = 0; i < arr.length; i++) {
+                    if (arr[i]['search'].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                      b = document.createElement("DIV");
+                      b.innerHTML = "<a target=\"blank\" href=\"" + window.location.origin + "/search-" + arr[i]['search'] + "\"><strong>" + arr[i]['search'].substr(0, val.length) + "</strong>";
+                      b.innerHTML += arr[i]['search'].substr(val.length);
+                      if(arr[i]['category_title'] != null){
+                          b.innerHTML += " - <span class\"ml-5\"> " + arr[i]['category_title'] + "</span>"
+                      }
+                      b.innerHTML += "<input type='hidden' value='" + arr[i]['search'] + "'></a>";
+                      b.addEventListener("click", function(e) {
+                          inp.value = this.getElementsByTagName("input")[0].value;
+                          closeAllLists();
+                      });
+                      a.appendChild(b);
+                    }
+                  }
+              });
+              inp.addEventListener("keydown", function(e) {
+                  var x = document.getElementById(this.id + "autocomplete-list");
+                  if (x) x = x.getElementsByTagName("div");
+                  if (e.keyCode == 40) {
+                    currentFocus++;
+                    addActive(x);
+                  } else if (e.keyCode == 38) { //up
+                    currentFocus--;
+                    addActive(x);
+                  } else if (e.keyCode == 13) {
+                    e.preventDefault();
+                    if (currentFocus > -1) {
+                      if (x) x[currentFocus].click();
+                    }
+                  }
+              });
+              function addActive(x) {
+                if (!x) return false;
+                removeActive(x);
+                if (currentFocus >= x.length) currentFocus = 0;
+                if (currentFocus < 0) currentFocus = (x.length - 1);
+                x[currentFocus].classList.add("autocomplete-active");
+              }
+              function removeActive(x) {
+                for (var i = 0; i < x.length; i++) {
+                  x[i].classList.remove("autocomplete-active");
+                }
+              }
+              function closeAllLists(elmnt) {
+                var x = document.getElementsByClassName("autocomplete-items");
+                for (var i = 0; i < x.length; i++) {
+                  if (elmnt != x[i] && elmnt != inp) {
+                    x[i].parentNode.removeChild(x[i]);
+                  }
+                }
+              }
+              document.addEventListener("click", function (e) {
+                  closeAllLists(e.target);
+              });
+            }
+            $('#id-search-form').submit(function(e){
+                console.log("form submitted:", $("#id-search-input").val());
+                e.preventDefault();
+
+                $.ajax({
+                    type: 'GET',
+                    url: window.location.origin + "/api/v1/search/ads/",
+                    dataType: 'json',
+                    delay: 250,
+                    data: {
+                        "q": $("#id-search-input").val()
+                    },
+                    success: function (data) {
+                        for(var i=0; i<data.items.length;i++){
+                            autocomplete(document.getElementById("myInput"), data.items);
+                        }
+                    }
+                });
+            });
+            $("#myInput").on("input", function() {
+                console.log($("#myInput").val());
+                $.ajax({
+                    type: 'GET',
+                    url: window.location.origin + "/api/v1/search/options/",
+                    dataType: 'json',
+                    delay: 250,
+                    data: {
+                        "q": $("#myInput").val()
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        autocomplete(document.getElementById("myInput"), data);
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

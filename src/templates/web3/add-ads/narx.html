@@ -1,0 +1,92 @@
+{% extends 'web3/base.html'%}
+{% load i18n %}
+{% load static %}
+{% block content %}
+
+<div class="wrapper">
+  <section class="section__control">
+    <div class="general__container">
+      <div class="control">
+        <a href="#" onclick="history.go(-1)" class="control__back">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.5 10L12.5 15L17.5 20" stroke="#FF1700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <!-- /.control__back -->
+        
+      </div>
+      <!-- /.progress -->
+    </div>
+    <!-- /.general__container -->
+    <div class="control__progress">
+      <span class="progress" style="width: 75%;"></span>
+      <!-- /.progress -->
+    </div>
+    <!-- /.control__progress -->
+  </section>
+  <!-- /.section__progress -->
+
+  <section class="section__prices">
+    <div class="general__container">
+      <h2 class="general__title">{% translate 'price' %}</h2>
+      <!-- /.general__title -->
+      <form action="" class="prices__form form__validator form__validator-2" method="post">
+        {% csrf_token %}
+        <div class="prices__container">
+          <input type="text" id="prices__summ" class="prices__total general-R" name="price" placeholder="1.000.000">
+          <div class="prices__type">
+            <div class="prices__box">
+              <input id="price__dollar" name="prices__types" value="2"  type="radio" required>
+              <label for="price__dollar">
+                <span class="general-R">$</span>
+              </label>
+            </div>
+            <!-- /.prices__box -->
+            <div class="prices__box">
+              <label for="price__summ">
+                <span class="general-R">So’m</span>
+                <input id="price__summ" name="prices__types" value="1" type="radio" required>
+              </label>
+            </div>
+            <!-- /.prices__type -->
+            </div>
+            <!-- /.prices__box -->
+        </div>
+        <!-- /.prices__container -->
+        <div class="prices__rebate">
+          <h3 class="general__subtitle">{% translate 'torg_yes' %}</h3>
+          <!-- /.general__subtitle -->
+          <div class="prices__pocket">
+            <div class="prices__box">
+              <input id="rebate-no" name="prices__rebate" value="1" type="radio" required>
+              <label for="rebate-no">
+                <span class="general-R">{% translate 'yes' %}</span>
+                <!-- /.general-r -->
+              </label>
+            </div>
+            <!-- /.prices__box -->
+            <div class="prices__box">
+              <input id="rebate-yes" name="prices__rebate" value="2" type="radio" required>
+              <label for="rebate-yes">
+                <span class="general-R">{% translate 'no' %}</span>
+                <!-- /.general-R -->
+              </label>
+            </div>
+            <!-- /.prices__box -->
+          </div>
+          <!-- /.prices__pocket -->
+        </div>
+        <!-- /.preices__rebate -->
+        <button class="general__next" id="submit" disabled type="submit">{% translate 'continue' %}</button>
+        <!-- /.general__next -->
+      </form>
+      <!-- /.prices__form -->
+    </div>
+    <!-- /.general__container -->
+  </section>
+  <!-- /.section__prices -->
+
+</div>
+<!-- /.wrapper -->
+
+{% endblock content %}

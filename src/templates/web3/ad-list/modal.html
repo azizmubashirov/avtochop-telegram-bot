@@ -1,0 +1,21 @@
+{% for category in categories %}
+<div class="popup__list">
+    <a href="{% url 'web3:category-view' category_id=category.id user_id=request.user.id %}" for="d-1" class="popup__config-checkbox general__list-item">
+        <input type="radio" id="d-1" name="v-1">
+        <span class="general__circle">
+            {% if category.image %}
+                <img src="{{ category.image.url }}" alt="">
+            {% endif %}
+        </span>
+        <!-- /.general__search -->
+        <span class="general__name">{{category.title.title_uz}}</span>
+        <!-- /.general__name -->
+        <span class="general__checked">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18.3334 5.9585L8.25008 16.0418L3.66675 11.4585" stroke="#3994FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </span>
+        <!-- /.general__checked -->
+    </a>
+</div>
+{% endfor %}

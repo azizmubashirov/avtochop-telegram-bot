@@ -1,0 +1,243 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link href="{% static 'libs/sweetalert2/sweetalert2.min.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock css %}
+{% block content %}
+<div class="layout-page">
+    <div class="content-wrapper">
+
+      <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="py-3 breadcrumb-wrapper mb-4">
+            E'lon ko'rish
+        </h4>
+
+        <div class="card mb-4">
+          <hr class="m-0" />
+          <div class="card-body">
+            <div class="row gy-4">
+
+              <div class="col-lg-6">
+                <small class="text-light fw-semibold">Asosiy ma'lumotlar</small>
+                <div class="demo-inline-spacing mt-3">
+                  <ol class="list-group list-group-numbered ">
+                    <li class="list-group-item" style="display:flex;"> E'lon raqami <div style="margin-left: auto;"><b >{{model.id}}</b></div></li>
+                    <li class="list-group-item" style="display:flex;"> Telegram ID <div style="margin-left: auto;"><b >{{model.user.chat_id}}</b></div></li>
+                    <li class="list-group-item" style="display:flex;"> Title <div style="margin-left: auto;"><b >{{model.title}}</b></div></li>
+                    <li class="list-group-item" style="display:flex;"> Kategoriya <div style="margin-left: auto;"><b >{{model.category.title.title_uz}}</b></div></li>
+                    <li class="list-group-item" style="display:flex;"> Region <div style="margin-left: auto;"><b >{{model.region}}</b></div></li>
+                    <li class="list-group-item" style="display:flex;"> Tuman <div style="margin-left: auto;"><b >{{model.district}}</b></div></li>
+                    <li class="list-group-item" style="display:flex;"> Narxi <div style="margin-left: auto;"><b >{{model.prices.narx}} 
+                        {% if model.currency == 1 %}
+                                so'm
+                        {% else %}
+                                y.e
+                        {% endif %}
+                    </b></div></li>
+                    <li class="list-group-item" style="display:flex;">Kami<div style="margin-left: auto;"><b >
+                        {% if model.torg == 1 %}
+                                Xa
+                        {% else %}
+                                Yo'q
+                        {% endif %}
+                    </b></div></li>
+                    <li class="list-group-item" style="display:flex;"> Telefon raqami <div style="margin-left: auto;"><b >{{model.contact.tel_1}} {{model.contact.tel_2}}</b></div></li>
+                    {% for key, value in caption.items %}
+                    <li class="list-group-item" style="display:flex;">{{key}} <div style="margin-left: auto;"><b >{{value}}</b></div></li>
+                    {% endfor %}
+                    <li class="list-group-item" style="display:flex;"> Status
+                      <div style="margin-left: auto;">
+                         {% if model.status == 1 %}
+                        <b class="badge rounded-pill bg-warning" role="alert">Moderatsiyada</b>
+                         {% elif model.status == 2 %}
+                            <span class="badge rounded-pill bg-danger" role="alert">Tasdiqlanmadi</span>
+                         {% elif model.status == 3 %}
+                            <span class="badge rounded-pill bg-primary" role="alert">Tasdiqlangan</span>
+                         {% elif model.status == 4 %}
+                            <span class="badge rounded-pill bg-success" role="alert">Faol</span>
+                         {% elif model.status == 5 %}
+                            <span class="badge rounded-pill bg-success" role="alert">Faol Emas</span>
+                         {% elif model.status == 6 %}
+                            <span class="badge rounded-pill bg-dark" role="alert">O'chirilgan</span>
+                         {% endif %}
+                      </div>
+                    </li>
+                    {% if comment %}
+                        <li class="list-group-item" style="display:flex;"> Comment <div style="margin-left: auto;"><b >{{comment}}</b></div></li>
+                    {% endif %}
+                    </ol>
+                  
+                  {% if model.status == 1 %}
+                    <a href="{% url 'dashboard:ads-submit' ad_id=model.id%}" class="btn btn-primary ads-access" name="Submitted" type="submit">Tasdiqlash</a>
+                    <a href="{% url 'dashboard:ads-refuse' ad_id=model.id%}" type="button" class="btn btn-danger ads-refuse"> Rad etish </a>
+                  {% endif %}
+                  <a href="{% url 'dashboard:ads-edit' ad_id=model.id%}" type="button" class="btn btn-warning"> O'zgartirish  </a>
+                </div>
+              </div>
+
+                <div class="col-lg-6">  
+                    {% for image in model.images %}
+                    <img class="img-fluid rounded my-4" src="{{ image }}" height="100%" width="100%" alt="User avatar">
+                    {% endfor %}
+                </div>
+            </div>
+          </div>
+        </div>
+
+    
+      </div>
+
+      <div class="content-backdrop fade"></div>
+    </div>
+  </div>
+{% endblock content %}
+{% block javascript %}
+<script src="{% static 'libs/sweetalert2/sweetalert2.min.js' %}"></script>
+<script>
+     const selected = "{{ form.get_selected_attributes }}".split(" ");
+    selected.forEach(item => {
+        $("#id_values option").each(function(){
+            var thisOptionValue = $(this).val();
+            if(item===thisOptionValue){
+                this.selected = true
+            }
+        });
+    })
+</script>
+{% if model.status == 1 %}
+<script>
+    $(".ads-access").click(function(e){
+        var access_url = $(this).attr('href');
+        e.preventDefault();
+        Swal.fire(
+            {
+            title:"Diqqat",
+            text:"Ushbu e'lonni tasdiqlaysizmi?",
+            type:"warning",
+            showCancelButton:true,
+            confirmButtonColor:"#3085d6",
+            cancelButtonColor:"#d33",
+            confirmButtonText:"Xa",
+            cancelButtonText:"Yo'q",
+            backdrop: `
+                rgba(16,196,105,.25)
+                left top
+                no-repeat
+              `
+            }
+        ).then(function(result){
+            if (result.value) {
+                $.ajax({
+                    type: 'GET',
+                    url: access_url,
+                    success: function (response) {
+                        Swal.fire({
+                            title: "Bajarildi!",
+                            text: "Tanlangan e'lon tasdiqlandi!",
+                            type: "success",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        setTimeout(function() {
+                            window.location = "{% url 'dashboard:ads-list' %}"
+                        }, 1500);
+                    },
+                    error: function (error) {
+                        Swal.fire("Xato", "Talangan e'lon tasdiqlanmadi!", "error")
+                    }
+                })
+            }
+        })
+    });
+    $(".ads-refuse").click(function(e){
+        var refuse_url = $(this).attr('href');
+        e.preventDefault();
+        Swal.fire(
+            {
+            title:"Sabab",
+            html: '<label class="form-control-label" for="id_refuse_reason"></label><textarea class="form-control" id="id_refuse_reason"rows="7" cols="30" name="text"></textarea>',
+            showCancelButton:true,
+            confirmButtonColor:"#3085d6",
+            cancelButtonColor:"#d33",
+            confirmButtonText:"Yuborish",
+            cancelButtonText:"Bekor qilish",
+            backdrop: `
+                rgba(255,91,91,.25)
+                left top
+                no-repeat
+              `
+            }
+        ).then(function(result){
+            if (result.value) {
+                var reason = $("#id_refuse_reason").val();
+                $.ajax({
+                    type: 'GET',
+                    url: refuse_url,
+                    data: {
+                        "reason": reason
+                    },
+                    success: function (response) {
+                        Swal.fire({
+                            title: "Bajarildi!",
+                            text: "Tanlangan e'lon rad etildi!",
+                            type: "success",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        setTimeout(function() {
+                            window.location = "{% url 'dashboard:ads-list' %}"
+                        }, 1500);
+                    },
+                    error: function (error) {
+                        Swal.fire("Xato", "Talangan qiymatni o'chirilmadi!", "error")
+                    }
+                })
+            }
+        })
+    });
+    $(".sa-warning").click(function(e){
+        var delete_url = $(this).attr('href');
+        console.log("log", delete_url);
+        e.preventDefault();
+        Swal.fire(
+            {
+            title:"Diqqat",
+            text:"Ushbu e'lonni o'chirib tashlamoqchimisiz?",
+            type:"warning",
+
+            showCancelButton:true,
+            confirmButtonColor:"#3085d6",
+            cancelButtonColor:"#d33",
+            confirmButtonText:"Xa",
+            cancelButtonText:"Yo'q",
+            backdrop: `
+                rgba(255,91,91,.25)
+                left top
+                no-repeat
+              `
+            }
+        ).then(function(result){
+            if (result.value) {
+                $.ajax({
+                    type: 'GET',
+                    url: delete_url,
+                    success: function (response) {
+                        Swal.fire({
+                            title: "O'chirildi!",
+                            text: "Tanlangan qiymat o'chirildi!",
+                            type: "success",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        setTimeout(function() { window.location.reload(); }, 1500);
+                    },
+                    error: function (error) {
+                        Swal.fire("Xato", "Talangan qiymatni o'chirilmadi!", "error")
+                    }
+                })
+            }
+        })
+    });
+</script>
+{% endif %}
+{% endblock javascript %}

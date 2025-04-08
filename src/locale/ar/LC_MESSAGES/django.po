@@ -1,0 +1,72 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-04-07 16:58+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+#: elon/base/exceptions.py:32
+msgid "Not found."
+msgstr ""
+
+#: elon/base/exceptions.py:39
+msgid "Permission denied."
+msgstr ""
+
+#: elon/base/fields.py:17
+msgid ""
+"A JSON field that runs a given sanitization method before saving into the "
+"database."
+msgstr ""
+
+#: elon/settings.py:144
+msgid "Russian"
+msgstr ""
+
+#: elon/settings.py:145
+msgid "Uzbek"
+msgstr ""
+
+#: templates/web3/process/active.html:15 templates/web3/process/active.html:32
+#: templates/web3/process/category.html:36
+msgid "active_ads"
+msgstr ""
+
+#: templates/web3/process/active.html:37 templates/web3/process/refused.html:37
+msgid "not_ads"
+msgstr ""
+
+#: templates/web3/process/active.html:94
+msgid "do_advertising"
+msgstr ""
+
+#: templates/web3/process/active.html:96
+msgid "edit_ads"
+msgstr ""
+
+#: templates/web3/process/category.html:26
+msgid "my_ads_text"
+msgstr ""
+
+#: templates/web3/process/category.html:54
+msgid "wait_ads"
+msgstr ""
+
+#: templates/web3/process/category.html:73
+#: templates/web3/process/refused.html:15
+#: templates/web3/process/refused.html:32
+msgid "refused_ads"
+msgstr ""

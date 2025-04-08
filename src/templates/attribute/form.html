@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="layout-page">
+    <!-- Content wrapper -->
+    <div class="content-wrapper">
+      <!-- Content -->
+
+      <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="py-3 breadcrumb-wrapper mb-4">
+        </h4>
+        <div class="col-md-12">
+            <div class="card mb-4">
+             <h5 class="card-header">Maydon qo'shish</h5>
+             <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row card-body col-md-12">
+                    <div class="col-md-6">
+                        <div class="row mb-3">
+                            <div class="form-group col-md-6">
+                                {{ form.label_uz.errors }}
+                                <label class="form-control-label" for="{{ form.label_uz.id_for_label }}">{{ form.label_uz.label }}</label>
+                                {{ form.label_uz }}
+
+                            </div>
+                            <div class="form-group col-md-6">
+                                {{ form.label_ru.errors }}
+                                <label class="form-control-label" for="{{ form.label_ru.id_for_label }}">{{ form.label_ru.label }}</label>
+                                {{ form.label_ru }}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="form-group col-md-6">
+                                {{ form.title_uz.errors }}
+                                <label class="form-control-label" for="{{ form.title_uz.id_for_label }}">{{ form.title_uz.label }}</label>
+                                {{ form.title_uz }}
+
+                            </div>
+                            <div class="form-group col-md-6">
+                                {{ form.title_ru.errors }}
+                                <label class="form-control-label" for="{{ form.title_ru.id_for_label }}">{{ form.title_ru.label }}</label>
+                                {{ form.title_ru }}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="form-group col-md-6">
+                                {{ form.help_uz.errors }}
+                                <label class="form-control-label" for="{{ form.help_uz.id_for_label }}">{{ form.help_uz.label }}</label>
+                                {{ form.help_uz }}
+
+                            </div>
+                            <div class="form-group col-md-6">
+                                {{ form.help_ru.errors }}
+                                <label class="form-control-label" for="{{ form.help_ru.id_for_label }}">{{ form.help_ru.label }}</label>
+                                {{ form.help_ru }}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="form-group col-md-6">
+                                {{ form.input_type.errors }}
+                                <label class="form-control-label" for="{{ form.input_type.id_for_label }}">{{ form.input_type.label }}</label>
+                                {{ form.input_type }}
+
+                            </div>
+                            <div class="form-group col-md-6">
+                                {{ form.parent.errors }}
+                                <label class="form-control-label" for="{{ form.parent.id_for_label }}">{{ form.parent.label }}</label>
+                                {{ form.parent }}
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="form-group col-md-6">
+                                {{ form.data_type.errors }}
+                                <label class="form-control-label" for="{{ form.data_type.id_for_label }}">{{ form.data_type.label }}</label>
+                                {{ form.data_type }}
+                            </div>
+                            <div class="form-group col-md-6">
+                                {{ form.multiple.errors }}
+                                <label class="form-control-label" for="{{ form.multiple.id_for_label }}">{{ form.multiple.label }}</label>
+                                {{ form.multiple }}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="form-group col-md-6">
+                                {{ form.unit_uz.errors }}
+                                <label class="form-control-label" for="{{ form.unit_uz.id_for_label }}">{{ form.unit_uz.label }}</label>
+                                {{ form.unit_uz }}
+                            </div>
+                            <div class="form-group col-md-6">
+                                {{ form.unit_ru.errors }}
+                                <label class="form-control-label" for="{{ form.unit_ru.id_for_label }}">{{ form.unit_ru.label }}</label>
+                                {{ form.unit_ru }}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="form-group col-md-6">
+                                {{ form.filter.errors }}
+                                <label class="form-control-label" for="{{ form.filter.id_for_label }}">{{ form.filter.label }}</label>
+                                {{ form.filter }}
+                            </div>
+                            <div class="form-group col-md-6">
+                                {{ form.is_price.errors }}
+                                <label class="form-control-label" for="{{ form.is_price.id_for_label }}">{{ form.is_price.label }}</label>
+                                {{ form.is_price }}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row mb-3">
+                            <div class="form-group col-md-6">
+                                {{ form.message_uz.errors }}
+                                <label class="form-control-label" for="{{ form.message_uz.id_for_label }}">{{ form.message_uz.label }}</label>
+                                {{ form.message_uz }}
+                            </div>
+                            <div class="form-group col-md-6">
+                                {{ form.message_ru.errors }}
+                                <label class="form-control-label" for="{{ form.message_ru.id_for_label }}">{{ form.message_ru.label }}</label>
+                                {{ form.message_ru }}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="form-group col-md-6">
+                                {{ form.rule.errors }}
+                                <label class="form-control-label" for="{{ form.rule.id_for_label }}">{{ form.rule.label }}</label>
+                                {{ form.rule }}
+                            </div>
+                            <div class="form-group col-md-6">
+                                {{ form.price_state.errors }}
+                                <label class="form-control-label" for="{{ form.price_state.id_for_label }}">{{ form.price_state.label }}</label>
+                                {{ form.price_state }}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="form-group col-md-6">
+                                {{ form.min.errors }}
+                                <label class="form-control-label" for="{{ form.min.id_for_label }}">{{ form.min.label }}</label>
+                                {{ form.min }}
+                            </div>
+                            <div class="form-group col-md-6">
+                                {{ form.max.errors }}
+                                <label class="form-control-label" for="{{ form.max.id_for_label }}">{{ form.max.label }}</label>
+                                {{ form.max }}
+                            </div>
+                        </div>
+
+                         <div class="row mb-3">
+                            <div class="form-group col-md-12">
+                                {{ form.values.errors }}
+                                <label class="form-control-label" for="{{ form.values.id_for_label }}">{{ form.values.label }}</label>
+                                {{ form.values }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-4">
+                        <button type="submit" class="btn btn-primary me-sm-3 me-1">Save</button>
+                        <a href="{% url 'dashboard:attribute-list' %}" type="reset" class="btn btn-label-secondary">Cancel</a>
+                    </div>
+                </div>
+            </form>
+
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+{% block javascript %}
+{% endblock javascript %}

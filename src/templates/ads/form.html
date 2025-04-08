@@ -1,0 +1,615 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">
+<link rel="stylesheet" href="{% static 'libs/select2/select2.css'%}">
+<link rel="stylesheet" href="{% static 'libs/tagify/tagify.css'%}">
+<link rel="stylesheet" href="{% static 'libs/bootstrap-select/bootstrap-select.css'%}">
+<link rel="stylesheet" href="{% static 'libs/typeahead-js/typeahead.css'%}">
+{% endblock css %}
+{% block content %}
+<div class="layout-page">
+    <!-- Content wrapper -->
+    <div class="content-wrapper">
+      <!-- Content -->
+
+      <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="py-3 breadcrumb-wrapper mb-4">
+        </h4>
+        <div class="col-md-12">
+            <div class="card mb-4">
+             <h5 class="card-header">E'lon qo'shish</h5>
+             <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row card-body col-md-12">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <h4 class="mb-0 ">Asosiy maydonlar</h4>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="form-group col-md-12">
+                                {{ form.category.errors }}
+                                <label class="form-control-label" for="{{ form.category.id_for_label }}">{{ form.category.label }}</label>
+                                <div id="id_div_category">
+                                <div class="form-group">
+                                    <select name="category" class="form-control" required  id="id_category">
+                                        <option style="font-weight: bold;" {% if category == 0 %}selected{% endif %}>Kategoriyani tanlang</option>
+                                        {% for cat in categories_list %}
+                                            {% with padding="" %}
+                                                {% include 'ads/option_view.html' %}
+                                            {% endwith %}
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                </div>
+                                <div id="id_markk"></div>
+                                <div id="id_madel"></div>
+                                <div id="id_position"></div>
+
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="form-group col-md-12">
+                                {{ form.title.errors }}
+                                <label class="form-control-label" for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
+                                {{ form.title }}
+
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="form-group col-md-12">
+                                {{ form.description.errors }}
+                                <label class="form-control-label" for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
+                                {{ form.description }}
+
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                                 <label class="form-control-label" for="id_file">Rasmlar</label>
+                                        <div class="row">
+                                            {{ formset.management_form }}
+                                            {% for file_form in formset %}
+                                                <div class="col-md-4 mb-3">
+                                                    {{ file_form.file }}
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                              </div>
+                        <div class="row mb-3">
+                            <div class="form-group col-md-6">
+                                {{ form.region.errors }}
+                                <label class="form-control-label" for="{{ form.region.id_for_label }}">{{ form.region.label }}</label>
+                                {{ form.region }}
+
+                            </div>
+                            <div class="form-group col-md-6" id="id_district_field">
+                                {{ form.district.errors }}
+                                <label class="form-control-label" for="{{ form.district.id_for_label }}">{{ form.district.label }}</label>
+                                {{ form.district }}
+
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="form-group col-md-12">
+                                {{ form.user.errors }}
+                                <label class="form-control-label" for="{{ form.user.id_for_label }}">{{ form.user.label }}</label>
+                                {{ form.user }}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="form-group col-md-6">
+                                {{ form.phone_number.errors }}
+                                <label class="form-control-label" for="{{ form.phone_number.id_for_label }}">{{ form.phone_number.label }}</label>
+                                {{ form.phone_number }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                                <h4 class="mb-0" id="id_dynamic_title">Kategoriya qo'shimcha maydonlari</h4>
+                            </div>
+                        <div class="card-body" id="id_dynamic_fields">
+                            {% if form.category.value %}
+                                {% for form_d in form.get_fields %}
+                                     <div class="form-group">
+                                        {{ form_d.errors }}
+                                        <label class="form-control-label" for="{{ form_d.id_for_label }}">{{ form_d.label }}</label>
+                                        {{ form_d }}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="card-body row">
+                            <div class="form-group col-md-8">
+                                {{ form.price.errors }}
+                                <label class="form-control-label" for="{{ form.price.id_for_label }}">{{ form.price.label }}</label>
+                                {{ form.price }}
+                            </div>
+                            <div class="form-group col-md-4">
+                                {{ form.currency.errors }}
+                                <label class="form-control-label" for="{{ form.currency.id_for_label }}">{{ form.currency.label }}</label>
+                                {{ form.currency }}
+                            </div>
+                        </div>
+                        <div class="card-body row">
+                            <div class="form-group col-md-12">
+                                {{ form.torg.errors }}
+                                <label class="form-control-label" for="{{ form.torg.id_for_label }}">{{ form.torg.label }}</label>
+                                {{ form.torg }}
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="pt-4">
+                        <button type="submit" class="btn btn-primary me-sm-3 me-1">Save</button>
+                        <a href="{% url 'dashboard:category-list' %}" type="reset" class="btn btn-label-secondary">Cancel</a>
+                    </div>
+                </div>
+            </form>
+
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+{% block javascript %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
+<script src="{% static 'libs/select2/select2.js'%}"></script>
+<script src="{% static 'libs/tagify/tagify.js'%}"></script>
+<script src="{% static 'libs/bootstrap-select/bootstrap-select.js'%}"></script>
+<script src="{% static 'libs/typeahead-js/typeahead.js'%}"></script>
+<script src="{% static 'libs/bloodhound/bloodhound.js'%}"></script>
+<script>
+    // $(document).ready(function(){
+    //     $('.select2-container .select2-selection--single').height(40);
+    //     $('.select2-container--default .select2-selection--single .select2-selection__arrow').css({ top: '10px' });
+    // });
+</script>
+<script>
+$(".select2").select2(
+    {
+        ajax: {
+            url: "{% url 'api:user-search' %}",
+            data: function (params) {
+                var query = {
+                    search: params.term,
+                    page: params.page
+                }
+                return query;
+            }
+        },
+        processResults: function (data, params) {
+            params.page = params.page || 1;
+            return {
+                results: data.results,
+                pagination: {
+              more: (params.page * 30) < data.total_count
+            }
+            };
+        },
+        placeholder: 'Foydalanuvchini tanlang',
+        minimumInputLength: 1,
+        templateResult: formatRepo,
+        templateSelection: formatRepoSelection
+    }
+);
+function formatRepo (repo) {
+    if (repo.loading) {
+        return repo.text;
+    }
+    if (repo.is_telegram == true){
+        console.log(repo);
+        var $container = $(
+            '<div class="table-responsive table-borderless">' +
+                '<table class="table mb-0 table-sm" style="width:100%;">' +
+                    '<colgroup>' +
+                       '<col span="1" style="width: 10%;">' +
+                       '<col span="1" style="width: 30%;">' +
+                       '<col span="1" style="width: 30%;">' +
+                       '<col span="1" style="width: 30%;">' +
+                    '</colgroup>' +
+                    '<tbody>' +
+                        '<tr>' +
+                            '<th scope="row">' + repo.id +'</th>' +
+                            '<td>' + repo.chat_id + '</td>' +
+                            '<td>' + repo.tg_username + '</td>' +
+                            '<td>' + repo.tg_firstname + ' ' + repo.tg_lastname + '</td>' +
+                        '</tr>' +
+                    "</tbody>" +
+                "</table>" +
+            "</div>"
+        );
+    }else{
+        var $container = $(
+            '<div class="table-responsive table-borderless">' +
+                '<table class="table mb-0 table-sm" style="width:100%;">' +
+                    '<colgroup>' +
+                       '<col span="1" style="width: 10%;">' +
+                       '<col span="1" style="width: 30%;">' +
+                       '<col span="1" style="width: 30%;">' +
+                       '<col span="1" style="width: 30%;">' +
+                    '</colgroup>' +
+                    '<tbody>' +
+                        '<tr>' +
+                            '<th scope="row">' + repo.id +'</th>' +
+                            '<td>' + repo.email + '</td>' +
+                            '<td>' + repo.phone_number + '</td>' +
+                            '<td>' + repo.nickname + '</td>' +
+                        '</tr>' +
+                    "</tbody>" +
+                "</table>" +
+            "</div>"
+        );
+    }
+    return $container;
+}
+
+function formatRepoSelection (repo) {
+    if (repo.id != ""){
+        var repo_json = JSON.parse(repo.text);
+        if (repo_json['id'] == ""){
+            console.log("repo id empty");
+            return $(
+                '<div class="table-responsive table-borderless">' +
+                    '<table class="table mb-0 table-sm" style="width:100%;">' +
+                        '<colgroup>' +
+                           '<col span="1" style="width: 10%;">' +
+                           '<col span="1" style="width: 30%;">' +
+                           '<col span="1" style="width: 30%;">' +
+                           '<col span="1" style="width: 30%;">' +
+                        '</colgroup>' +
+                        '<tbody>' +
+                            '<tr>' +
+                                '<th colspan="4">' + 'Faydalanuvchini tanlang' + '</th>' +
+                            '</tr>' +
+                        "</tbody>" +
+                    "</table>" +
+                "</div>"
+            );
+        }
+        if (repo_json['is_telegram'] == 1){
+            var $container = $(
+                '<div class="table-responsive table-borderless">' +
+                    '<table class="table mb-0 table-sm" style="width:100%;">' +
+                        '<colgroup>' +
+                           '<col span="1" style="width: 10%;">' +
+                           '<col span="1" style="width: 30%;">' +
+                           '<col span="1" style="width: 30%;">' +
+                           '<col span="1" style="width: 30%;">' +
+                        '</colgroup>' +
+                        '<tbody>' +
+                            '<tr>' +
+                                '<th scope="row">' + repo_json['id'] +'</th>' +
+                                '<td>' + repo_json['chat_id'] + '</td>' +
+                                '<td>' + repo_json['tg_username'] + '</td>' +
+                                '<td>' + repo_json['tg_firstname'] + ' ' + repo_json['tg_lastname'] + '</td>' +
+                            '</tr>' +
+                        "</tbody>" +
+                    "</table>" +
+                "</div>"
+            );
+        }else{
+            var $container = $(
+                '<div class="table-responsive table-borderless">' +
+                    '<table class="table mb-0 table-sm" style="width:100%;">' +
+                        '<colgroup>' +
+                           '<col span="1" style="width: 10%;">' +
+                           '<col span="1" style="width: 30%;">' +
+                           '<col span="1" style="width: 30%;">' +
+                           '<col span="1" style="width: 30%;">' +
+                        '</colgroup>' +
+                        '<tbody>' +
+                            '<tr>' +
+                                '<th scope="row">' + repo_json['id'] +'</th>' +
+                                '<td>' + repo_json['email'] + '</td>' +
+                                '<td>' + repo_json['phone_number'] + '</td>' +
+                                '<td>' + repo_json['nickname'] + '</td>' +
+                            '</tr>' +
+                        "</tbody>" +
+                    "</table>" +
+                "</div>"
+            );
+        }
+    }else{
+        if (repo.id == ""){
+            return $(
+                '<div class="table-responsive table-borderless">' +
+                    '<table class="table mb-0 table-sm" style="width:100%;">' +
+                        '<colgroup>' +
+                           '<col span="1" style="width: 10%;">' +
+                           '<col span="1" style="width: 30%;">' +
+                           '<col span="1" style="width: 30%;">' +
+                           '<col span="1" style="width: 30%;">' +
+                        '</colgroup>' +
+                        '<tbody>' +
+                            '<tr>' +
+                                '<th colspan="4">' + repo.text + '</th>' +
+                            '</tr>' +
+                        "</tbody>" +
+                    "</table>" +
+                "</div>"
+            );
+        }
+        if (repo.is_telegram == true){
+            var $container = $(
+                '<div class="table-responsive table-borderless">' +
+                    '<table class="table mb-0 table-sm" style="width:100%;">' +
+                        '<colgroup>' +
+                           '<col span="1" style="width: 10%;">' +
+                           '<col span="1" style="width: 30%;">' +
+                           '<col span="1" style="width: 30%;">' +
+                           '<col span="1" style="width: 30%;">' +
+                        '</colgroup>' +
+                        '<tbody>' +
+                            '<tr>' +
+                                '<th scope="row">' + repo.id +'</th>' +
+                                '<td>' + repo.chat_id + '</td>' +
+                                '<td>' + repo.tg_username + '</td>' +
+                                '<td>' + repo.tg_firstname + ' ' + repo.tg_lastname + '</td>' +
+                            '</tr>' +
+                        "</tbody>" +
+                    "</table>" +
+                "</div>"
+            );
+        }else{
+            var $container = $(
+                '<div class="table-responsive table-borderless">' +
+                    '<table class="table mb-0 table-sm" style="width:100%;">' +
+                        '<colgroup>' +
+                           '<col span="1" style="width: 10%;">' +
+                           '<col span="1" style="width: 30%;">' +
+                           '<col span="1" style="width: 30%;">' +
+                           '<col span="1" style="width: 30%;">' +
+                        '</colgroup>' +
+                        '<tbody>' +
+                            '<tr>' +
+                                '<th scope="row">' + repo.id +'</th>' +
+                                '<td>' + repo.email + '</td>' +
+                                '<td>' + repo.phone_number + '</td>' +
+                                '<td>' + repo.nickname + '</td>' +
+                            '</tr>' +
+                        "</tbody>" +
+                    "</table>" +
+                "</div>"
+            );
+        }
+    }
+    return $container;
+}
+</script>
+<script>
+    $(".dropify").dropify(
+        {
+            messages:{
+                default:"Rasm tanlang",
+                remove:"O'chirish",
+                error:"Xatolik yuz berdi!"
+            }
+        }
+    );
+</script>
+<script>
+    $("#id_category").change(function(e){
+        var selected_value = $("#id_category option:selected" ).val()
+        var selected_value_title = $("#id_category option:selected" ).text()
+
+        console.log("selected_value",selected_value)
+        console.log("selected_value_title", selected_value_title)
+
+        if (selected_value === ''){
+            $("#id_dynamic_fields").html("");
+            $("#id_dynamic_title").html("Kategoriya qo'shimcha maydonlari");
+        }
+        else{
+            $.ajax({
+                type: 'GET',
+                url: window.location.origin + "/api/v1/eav/category/" + selected_value + "/info/",
+                success: function (response) {
+                    $.ajax({
+                        type: 'GET',
+                        url: "{% url 'dashboard:ads-create' %}",
+                        data: {"category_id": selected_value, "marka":response.marka},
+                        success: function (response) {
+                            console.log(">>>>", response)
+                            $("#id_dynamic_fields").html(response);
+                            $("#id_dynamic_title").html("\"<b>" + selected_value_title + "</b>\" kategoriya maydonlari");
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    })
+                },
+                error: function (error) {
+                    console.log(error);
+                    $("#id_dynamic_fields").html(response);
+                    $("#id_dynamic_title").html("\"<b>" + selected_value_title + "</b>\" kategoriya maydonlari");
+                }
+            })
+        }
+    });
+    $("#{{ form.region.auto_id }}").change(function(e){
+        var selected_value = $("#{{ form.region.auto_id }} option:selected" ).val()
+        var selected_value_title = $("#{{ form.region.auto_id }} option:selected" ).text()
+        $.ajax({
+            type: 'GET',
+            url: "{% url 'dashboard:ads-create' %}",
+            data: {"region_id": selected_value },
+            success: function (response) {
+                $("#id_district_field").html(response);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
+    });
+</script>
+<script>
+    function FieldSelect(a, b){
+        $.ajax({
+            type: 'GET',
+            url: "{% url 'dashboard:ads-field' %}",
+            data: {"field_id": a, "value_id": b},
+            success: function (response) {
+                if (response){
+                    let slug = "id_"+ response.slug
+                    var field = $("#"+slug);
+                    field.html("");
+                    values = response.values
+                    for (let i = 0; i < values.length; i++) {
+                        field.append($("<option>").attr("value", values[i].value).html(values[i].label.label_uz))
+                    }
+            }
+            },
+        })
+    }
+</script>
+<script>
+
+    $("#id_madel").change(function(e){
+        var selected_value = $("#id_madel option:selected" ).val()
+        var selected_value_title = $("#id_madel option:selected" ).text()
+        console.log("model", selected_value, selected_value_title)
+        $.ajax({
+            type:'GET',
+            url:window.location.origin + '/api/tg/eav/field/' + selected_value + '/positsion/',
+            success:function(response){
+                const conteyner = document.getElementById('id_position');
+                var _html = '';
+                var response_item = response.items;
+                _html += `<label class="form-control-label" for="id_marka">Positsiyasini tanlang</label>`
+                if(response_item.length != 0){
+                    document.getElementById('id_position').style.display = 'block';
+                    _html += `<div class="form-group"><select name="positsion" class="form-control" id="id_marka" required>`;
+                    for(let i = 0; i < response_item.length; i++){
+                        _html += `<option value="` + response_item[i].id + `">` + response_item[i].label.label_uz +`</option>`;
+                    }
+                    _html += `</select></div>`;
+                     conteyner.innerHTML = _html;
+                }else{
+                    document.getElementById('id_position').style.display = 'none';
+                }
+            }
+        })
+
+    });
+
+    $("#id_markk").change(function(e){
+        var selected_value = $("#id_markk option:selected" ).val()
+        var selected_value_title = $("#id_markk option:selected" ).text()
+
+        $.ajax({
+            type:'GET',
+            url:window.location.origin + '/api/tg/eav/field/' + selected_value + '/madel/',
+            success:function(response){
+                const conteyner = document.getElementById('id_madel');
+                var _html = '';
+                var response_item = response.items;
+                _html += `<label class="form-control-label" for="id_marka">Modelini tanlang tanlang</label>`
+                if(response_item.length != 0){
+                    document.getElementById('id_madel').style.display = 'block';
+                    _html += `<div class="form-group"><select name="model" class="form-control" id="id_marka" required>`;
+                    _html += `<option value="-">Modelini tanlang</option>`;
+                    for(let i = 0; i < response_item.length; i++){
+                        _html += `<option value="` + response_item[i].id + `">` + response_item[i].label.label_uz +`</option>`;
+                    }
+                    _html += `</select></div>`;
+                     conteyner.innerHTML = _html;
+                }else{
+                    document.getElementById('id_madel').style.display = 'none';
+                }
+            }
+        })
+
+
+    });
+
+    $("#id_category").change(function(e){
+        var selected_value = $("#id_category option:selected" ).val()
+        var selected_value_title = $("#id_category option:selected" ).text()
+
+        console.log("selected_value",selected_value)
+        console.log("selected_value_title", selected_value_title)
+
+        if (selected_value === ''){
+            $("#id_dynamic_fields").html("");
+            $("#id_dynamic_title").html("Kategoriya qo'shimcha maydonlari");
+        }
+        else{
+            document.getElementById('id_madel').style.display = 'none';
+            document.getElementById('id_markk').style.display = 'none';
+            document.getElementById('id_position').style.display = 'none';
+            $.ajax({
+                type: 'GET',
+                url: window.location.origin + "/api/v1/eav/category/" + selected_value + "/info/",
+                success: function (response) {
+                    $.ajax({
+                        type: 'GET',
+                        url: "{% url 'dashboard:ads-create' %}",
+                        data: {"category_id": selected_value, "marka":response.marka},
+                        success: function (response) {
+                            $("#id_dynamic_fields").html(response);
+                            $("#id_dynamic_title").html("\"<b>" + selected_value_title + "</b>\" kategoriya maydonlari");
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    })
+                },
+                error: function (error) {
+                    console.log(error);
+                    $("#id_dynamic_fields").html(response);
+                    $("#id_dynamic_title").html("\"<b>" + selected_value_title + "</b>\" kategoriya maydonlari");
+                }
+            })
+
+            $.ajax({
+                type:'GET',
+                url:window.location.origin + '/api/tg/eav/field/' + selected_value + '/marka/',
+                success:function(response){
+                    const conteyner = document.getElementById('id_markk');
+                    var _html = '';
+                    var response_item = response.items;
+                    _html += `<label class="form-control-label" for="id_marka">Markasini tanlang</label>`
+                    if(response_item.length != 0){
+                        document.getElementById('id_markk').style.display = 'block';
+                        _html += `<div class="form-group"><select name="marka" class="form-control" id="id_marka" required>`;
+                         _html += `<option value="-">Markasini tanlang</option>`;
+                        for(let i = 0; i < response_item.length; i++){
+                            _html += `<option value="` + response_item[i].id + `">` + response_item[i].label.label_uz +`</option>`;
+                        }
+                        _html += `</select></div>`;
+                         conteyner.innerHTML = _html;
+                    }else{
+                        document.getElementById('id_markk').style.display = 'none';
+                    }
+                }
+            })
+        }
+    });
+
+    $("#id_marka").change(function(e){
+        var selected_value = $("#id_marka option:selected" ).val();
+        var selected_value_title = $("#id_marka option:selected" ).text();
+        console.log("??????", selected_value, selected_value_title)
+    });
+
+    $("#{{ form.region.auto_id }}").change(function(e){
+        var selected_value = $("#{{ form.region.auto_id }} option:selected" ).val()
+        var selected_value_title = $("#{{ form.region.auto_id }} option:selected" ).text()
+        $.ajax({
+            type: 'GET',
+            url: "{% url 'dashboard:ads-create' %}",
+            data: {"region_id": selected_value },
+            success: function (response) {
+                $("#id_district_field").html(response);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
+    });
+</script>
+{% endblock javascript %}

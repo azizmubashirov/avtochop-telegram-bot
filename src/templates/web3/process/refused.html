@@ -1,0 +1,164 @@
+{% extends 'web3/base.html'%}
+{% load static %}
+{% load i18n %}
+{% block content %}
+
+<div class="wrapper">
+  <section class="section__control">
+    <div class="general__container">
+      <div class="control">
+        <a href="#" onclick="history.go(-1)" class="control__back">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.5 10L12.5 15L17.5 20" stroke="#FF1700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <h3 class="control__name general-DB">{% translate 'refused_ads' %}</h3>
+        <!-- /.control__back -->
+        <button type="button" class="control__close">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 10L20 20" stroke="#FF1700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M20 10L10 20" stroke="#FF1700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      <!-- /.progress -->
+    </div>
+    <!-- /.general__container -->
+  </section>
+  <!-- /.section__progress -->
+
+  <section class="section__processes">
+    <div class="general__container">
+      <h2 class="general__title">{% translate 'refused_ads' %}</h2>
+      {% if not ads %}
+      <!-- /.general__title -->
+        <div class="processes__null">
+            <img src="{% static 'web3/img/bg/bg-processes.svg'%}" alt="null">
+            <p class="general-L">{% translate 'not_ads' %}</p>
+            <!-- /.general -->
+        </div>
+      {% else %}
+        <!-- /.processes__active -->
+      <div class="processes__list">
+        {% for ad in ads %}
+        <div class="processes__item">
+          <div class="processes__content">
+            <div class="processes__pic">
+              <img src="{{ad.images.0}}" alt="" class="process__img">
+              <!-- /.process__img -->
+            </div>
+            <!-- /.process__pic -->
+            <div class="processes__main">
+              <div class="processes__row">
+                <p class="processes__name general-M">{{ad.title}}</p>
+                <!-- /.process__name -->
+                <p class="processes__date general-M">{{ad.created_at|date:"d.m.Y"}}</p>
+                <!-- /.process__date -->
+              </div>
+              <!-- /.process__row -->
+              <h3 class="processes__price general-DB">{{ad.prices.narx}} {%if ad.currency == 1%}so'm {% else %} y.e {% endif %}</h3>
+              <!-- /.process__price -->
+              <div class="processes__row">
+                <div class="processes__count">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12.5091 5.9742L12 6.49112L11.4908 5.97412C10.5625 5.03106 9.29461 4.5 7.97132 4.5C6.64804 4.5 5.38012 5.03106 4.45182 5.97412V5.97412C2.51606 7.96337 2.51606 11.1322 4.45182 13.1215L9.84447 18.5971C10.413 19.1747 11.1896 19.5 12 19.5C12.8105 19.5 13.587 19.1747 14.1556 18.5971L19.5482 13.1216C21.4839 11.1323 21.4839 7.96347 19.5482 5.97421V5.97421C18.6199 5.03112 17.3519 4.50003 16.0286 4.50003C14.7053 4.50003 13.4374 5.03111 12.5091 5.9742Z" stroke="#C6C6C6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span class="general-M">0</span>
+                  <!-- /.general-M -->
+                </div>
+                <!-- /.process__count -->
+                <div class="processes__count">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.1218 9.87999C15.2928 11.051 15.2928 12.952 14.1218 14.125C12.9508 15.296 11.0498 15.296 9.87679 14.125C8.70579 12.954 8.70579 11.053 9.87679 9.87999C11.0498 8.70699 12.9498 8.70699 14.1218 9.87999" stroke="#C6C6C6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M3 12C3 11.341 3.152 10.689 3.446 10.088V10.088C4.961 6.991 8.309 5 12 5C15.691 5 19.039 6.991 20.554 10.088V10.088C20.848 10.689 21 11.341 21 12C21 12.659 20.848 13.311 20.554 13.912V13.912C19.039 17.009 15.691 19 12 19C8.309 19 4.961 17.009 3.446 13.912V13.912C3.152 13.311 3 12.659 3 12Z" stroke="#C6C6C6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span class="general-M">0</span>
+                  <!-- /.general-M -->
+                </div>
+                <!-- /.process__count -->
+                <div class="processes__count">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M18.7021 18.9626L19.5607 18.104C20.1464 17.5182 20.1464 16.5685 19.5607 15.9827L17.6433 14.0653C17.2682 13.6903 16.7595 13.4796 16.2291 13.4796C15.6987 13.4796 15.19 13.6903 14.8149 14.0653L13.3118 15.5684C11.0542 14.7265 9.27349 12.9458 8.43155 10.6882L9.93462 9.18509C10.7157 8.40405 10.7157 7.13773 9.93462 6.35668L8.0173 4.43934C7.736 4.15804 7.35447 4 6.95664 4C6.55881 4 6.17728 4.15804 5.89597 4.43934L5.03742 5.29788C4.37393 5.96137 4.00082 6.86103 4 7.79934V7.79934C3.9972 11.036 5.28171 14.1409 7.57037 16.4296C9.85904 18.7183 12.9639 20.0028 16.2006 20V20C17.1389 19.9992 18.0386 19.6261 18.7021 18.9626V18.9626Z" stroke="#C6C6C6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span class="general-M">0</span>
+                  <!-- /.general-M -->
+                </div>
+                <!-- /.process__count -->
+              </div>
+              <!-- /.process__row -->
+            </div>
+            <!-- /.process__main -->
+          </div>
+          <!-- /.process__content -->
+          <div  class="processes__refused general-M">
+            <div class="left">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11.99 2C6.47 2 2 6.48 2 12C2 17.52 6.47 22 11.99 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 11.99 2ZM16 16C15.9075 16.0927 15.7976 16.1663 15.6766 16.2164C15.5557 16.2666 15.426 16.2924 15.295 16.2924C15.164 16.2924 15.0343 16.2666 14.9134 16.2164C14.7924 16.1663 14.6825 16.0927 14.59 16L11.3 12.71C11.2055 12.6174 11.1303 12.5069 11.0788 12.3851C11.0273 12.2632 11.0005 12.1323 11 12V8C11 7.45 11.45 7 12 7C12.55 7 13 7.45 13 8V11.59L16 14.59C16.39 14.98 16.39 15.61 16 16Z" fill="#FF1700"/>
+                <path d="M16 16C15.9075 16.0927 15.7976 16.1663 15.6766 16.2164C15.5557 16.2666 15.426 16.2924 15.295 16.2924C15.164 16.2924 15.0343 16.2666 14.9134 16.2164C14.7924 16.1663 14.6825 16.0927 14.59 16L11.3 12.71C11.2055 12.6174 11.1303 12.5069 11.0788 12.3851C11.0273 12.2632 11.0005 12.1323 11 12V8C11 7.45 11.45 7 12 7C12.55 7 13 7.45 13 8V11.59L16 14.59C16.39 14.98 16.39 15.61 16 16Z" fill="#FF1700"/>
+                <path d="M8.26683 16.6668L7.3335 15.7335L11.0668 12.0002L7.3335 8.26683L8.26683 7.3335L12.0002 11.0668L15.7335 7.3335L16.6668 8.26683L12.9335 12.0002L16.6668 15.7335L15.7335 16.6668L12.0002 12.9335L8.26683 16.6668Z" fill="white"/>
+              </svg>
+              {% translate 'refused_ad' %}
+            </div>
+            <!-- /.left -->
+            <a href="#" onclick="func('{{ad.id}}')" class="filter__link">{% translate 'what_for' %}</a>
+          </div>
+          <!-- /.process__tg -->
+        </div>
+        <!-- /.process__item -->
+        {% endfor %}
+      </div>
+      {% endif %}
+      <!-- /.processes__list -->
+    </div>
+    <!-- /.general__container -->
+  </section>
+  <!-- /.section__processes -->
+  <div class="popup__back"></div>
+  <!-- /.popup__back -->
+  <div class="popup">
+    <span class="close">
+        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 10L20 20" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M20 10L10 20" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </span>
+      <!-- /.close -->
+      <form action="" class="popup__config">
+          <div class="popup__list">
+              <label for="d-1" class="popup__config-checkbox general__list-item">
+                  <span class="general__name"></span>
+                  <!-- /.general__name -->
+                  <span class="general__checked">
+                      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M18.3334 5.9585L8.25008 16.0418L3.66675 11.4585" stroke="#3994FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                  </span>
+                  <!-- /.general__checked -->
+              </label>
+          </div>
+      </form>
+      <!-- /.popup__container -->
+  </div>
+</div>
+<!-- /.wrapper -->
+
+{% endblock content %}
+{% block javascript %}
+<script>
+    function func(e) {
+      $.ajax({
+        method: 'GET',
+        url: "{% url 'web3:my-ads-ajax' %}",
+        data: { 'ad_id': e},
+        dataType: 'json',
+        success: function(data){
+            $('.general__name').html(data['comment'])
+            $('.popup__back').slideDown('200');
+            setTimeout(()=> {
+                $('.popup').fadeIn('200');
+            }, 250)
+        }
+    });
+    }
+</script>
+{% endblock javascript %}

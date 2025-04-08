@@ -1,0 +1,162 @@
+{% extends 'web3/base.html'%}
+{% load static %}
+{% load i18n %}
+{% block content %} 
+
+<div class="wrapper">
+    <section class="section__control">
+        <div class="general__container">
+            <div class="control">
+                <a href="#" onclick="history.go(-1)" class="control__back">
+                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.5 10L12.5 15L17.5 20" stroke="#FF1700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+                <!-- /.control__back -->
+                <h3 class="control__name general-DB">{% translate 'search' %}</h3>
+                <button type="button" class="control__close">
+                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 10L20 20" stroke="#FF1700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M20 10L10 20" stroke="#FF1700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            <!-- /.progress -->
+        </div>
+        <!-- /.general__container -->
+    </section>
+    <!-- /.section__progress -->
+
+    <section class="section__searching">
+        <div class="general__container">
+            <form action="{% url 'web3:ad-filter' category_id=category_id %}" class="searching" method="post">
+                 {% csrf_token %}
+                <!-- /.searching__type -->
+                <div class="searching__type">
+                    <h3 class="searching__type-title general-DB">{% translate 'price' %}</h3>
+                    <!-- /.searching__type-title -->
+                    <div class="searching__row searching__prices">
+                        <input type="text" id="prices__summ-with" class="prices__total prices__general general-R" name="price_from" placeholder="{% translate 'from' %}">
+                        <input type="text" id="prices__summ-to" class="prices__total prices__general general-R" name="price_to" placeholder="{% translate 'to' %}">
+
+                        <div class="prices__box">
+                            <input id="price__dollar" name="currency" type="radio" value="2">
+                            <label for="price__dollar">
+                                <span class="general-R">$</span>
+                            </label>
+                        </div>
+                        <!-- /.prices__box -->
+                        <div class="prices__box">
+                            <input id="price__summ" name="currency" type="radio" value="1">
+                            <label for="price__summ">
+                                <span class="general-R">So’m</span>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- /.searching__row -->
+                </div>
+                <!-- /.searching__type -->
+                <div class="searching__type">
+                    {% for field in steps.fields %}
+                    {% if field.input_type == 'Text'%}
+                        <!-- <input type="text" name="{{field.slug}}" class="searching__mileage" placeholder="{{field.properties.label.label_uz}}" style="margin-bottom: 10px;"> -->
+                        <h3 class="searching__type-title general-DB" style="margin-top: 5px;">{% if LANGUAGE_CODE == 'uz' %}{{field.properties.label.label_uz}}{% else %}{{field.properties.label.label_ru}}{% endif %}</h3>
+                        <!-- /.searching__type-title -->
+                        <div class="searching__row searching__year" style="margin-bottom:10px;">
+                            <label for="with__{{field.slug}}">
+                                <input id="with__{{field.slug}}" type="text" name="{{field.slug}}_%from" placeholder="{% translate 'from' %}">
+                            </label>
+                            <label for="to__{{field.slug}}">
+                                <input id="to__{{field.slug}}" type="number" name="{{field.slug}}_%to" placeholder="{% translate 'to' %}">
+                            </label>
+                        </div>
+                    {% elif field.input_type == 'Select' %}
+                     <label for="searching__{{field.slug}}" class="searching__select" style="margin-top:10px;">
+                        <select name="{{field.slug}}" id="searching__{{field.slug}}" class="searching__btn">
+                            <option value="1a">{% if LANGUAGE_CODE == 'uz' %}{{field.properties.label.label_uz}}{% else %}{{field.properties.label.label_ru}}{% endif %}</option>
+                            {% for value in field.values %}
+                            <option value="{{value.id}}" name="{{value.id}}">{% if LANGUAGE_CODE == 'uz' %}{{value.label.label_uz}}{% else %}{{value.label.label_ru}}{% endif %}</option>
+                            {% endfor %}
+                        </select>
+                        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.5 10L17.5 15L12.5 20" stroke="#3994FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </label>
+                    {% endif %}
+                    {% endfor %}
+                    <!-- /.searching__type-title -->
+                    <!--===========Update select==============-->
+                </div>
+                <button class="general__next searching__result">{% translate 'show_result' %}</button>
+                <!-- /.general__next -->
+            </form>
+            <!-- /.searching -->
+        </div>
+        <!-- /.general__container -->
+    </section>
+    <!-- /.section__searching -->
+
+    <div class="popup__back"></div>
+    <!-- /.popup__back -->
+    <div class="popup">
+        <span class="close">
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 10L20 20" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M20 10L10 20" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </span>
+        <!-- /.close -->
+        <form action="" class="popup__config">
+            <div class="popup__list">
+                <label for="d-1" class="popup__config-checkbox general__list-item">
+                    <input type="radio" id="d-1" name="v-1">
+                    <span class="general__circle">
+                        <img src="/img/cars/1.png" alt="">
+                    </span>
+                    <!-- /.general__search -->
+                    <span class="general__name">Avtomobillar</span>
+                    <!-- /.general__name -->
+                    <span class="general__checked">
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18.3334 5.9585L8.25008 16.0418L3.66675 11.4585" stroke="#3994FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                    <!-- /.general__checked -->
+                </label>
+
+                <label for="d-2" class="popup__config-checkbox general__list-item">
+                    <input type="radio" id="d-2" name="v-1">
+                    <span class="general__circle">
+                        <img src="/img/cars/2.png" alt="">
+                    </span>
+                    <!-- /.general__search -->
+                    <span class="general__name">Mototexnika</span>
+                    <!-- /.general__name -->
+                    <span class="general__checked">
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M18.3334 5.9585L8.25008 16.0418L3.66675 11.4585" stroke="#3994FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+                    </span>
+                    <!-- /.general__checked -->
+                </label>
+            </div>
+            <!-- /.popup__list -->
+            <button class="general__next searching__result">Natijani ko’rsatish <span>15744</span></button>
+        </form>
+        <!-- /.popup__container -->
+    </div>
+    <!-- /.popup -->
+</div>
+<!-- /.wrapper -->
+
+{% endblock content %}
+{% block javascript %}
+<!--<script>-->
+<!--    $('.searching__btn').click(function(){-->
+<!--        $('.popup__back').slideDown('200');-->
+<!--        setTimeout(()=> {-->
+<!--            $('.popup').fadeIn('200');-->
+<!--        }, 250)-->
+<!--    })-->
+<!--</script>-->
+{% endblock javascript %}

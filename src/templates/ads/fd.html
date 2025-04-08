@@ -1,0 +1,12 @@
+{% for form_d in form.get_fields %}
+<div class="row mb-3">
+    <div class="form-group col-md-12">
+        {{ form_d.errors }}
+        <label class="form-control-label" for="{{ fform_d.id_for_label }}">{{ form_d.label }}</label>
+        {{ form_d }}
+
+    </div>
+</div>
+{% endfor %}
+
+

@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'libs/datatables-bs5/datatables.bootstrap5.css'%}" />
+<link rel="stylesheet" href="{% static 'libs/datatables-responsive-bs5/responsive.bootstrap5.css'%}" />
+<link rel="stylesheet" href="{% static 'libs/datatables-buttons-bs5/buttons.bootstrap5.css'%}" />
+<link rel="stylesheet" href="{% static 'libs/select2/select2.css'%}" />
+<link rel="stylesheet" href="{% static 'libs/formvalidation/dist/css/formValidation.min.css'%}" />
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+{% endblock css %}
+{% block content %}
+<div class="layout-page">
+    <div class="content-wrapper">
+      <!-- Content -->
+
+
+      <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="py-3 breadcrumb-wrapper mb-4">
+          <span class="text-muted fw-light"></span> Qiymatlar
+        </h4>
+
+        <div class="card">
+          <div class="card-header flex-column flex-md-row">
+
+              <div class="dt-action-buttons text-end pt-3 pt-md-0">
+                  <div class="dt-buttons">
+                     <a href="{% url 'dashboard:value-create' %}" class="dt-button create-new btn btn-primary" tabindex="0" aria-controls="DataTables_Table_0" type="button">
+                          <span><i class="bx bx-plus me-sm-2"></i>
+                              <span class="d-none d-sm-inline-block">Qiymat Qo'shish</span>
+                          </span>
+                      </a>
+                  </div>
+              </div>
+          </div>
+          <div class="table-responsive text-nowrap">
+            <div class="card">
+                <div class="card-datatable table-responsive pt-0">
+                  <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="dataTables_length" id="DataTables_Table_0_length">
+                                <label>Show
+                                    <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-select" id="id_list_entries">
+                                        {% for entry in entries_list %}
+                                            <option value="{{ entry }}" {% if entries == entry %}selected{% endif %}>{{ entry }}</option>
+                                        {% endfor %}
+                                    </select> entries
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end">
+                            <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                                <label>Search:
+                                    <input type="search" id="id_search" class="form-control" placeholder="Qidirish..." aria-controls="DataTables_Table_0" value="{{ search }}">
+                                </label>
+
+                            </div>
+                        </div>
+                    </div>
+                    <table class="datatables-basic table table-bordered dataTable no-footer dtr-column" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" style="width: 1384px;">
+                        <colgroup>
+                            <col span="1" style="width: 10%;">
+                            <col span="1" style="width: 20%;">
+                            <col span="1" style="width: 20%;">
+                            <col span="1" style="width: 20%;">
+                            <col span="1" style="width: 10%;">
+                         </colgroup>
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Label (UZ)</th>
+                            <th>Label (RU)</th>
+                            <th>Qo'shilgan sana</th>
+                            <th>Actions</th>
+                          </tr>
+                    </thead>
+                    <tbody>
+                        <tbody class="table-border-bottom-0">
+                            {% for value in values %}
+                            <tr>
+                                <td>{{value.id}}</td>
+                                <td>
+                                    {{ value.label.label_uz}}
+                                </td>
+                                <td>
+                                    {{ value.label.label_ru}}
+                                </td>
+                                <td>
+                                    {{ value.created_at}}
+                                </td>
+                              <td>
+                                  <a href="{% url 'dashboard:value-edit' value_id=value.id%}" type="button" class="btn btn-warning">
+                                      <span class="bx bx-edit-alt me-1"></span>
+                                  </a>
+                                  <a href="{% url 'dashboard:value-delete' value_id=value.id%}"  type="button" class="btn btn-danger">
+                                    <span class="bx bx-trash me-1"></span>
+                                </a>
+                              </td>
+                            </tr>
+                            {% endfor %}
+                          </tbody>
+                    </tbody>
+                  </table>
+
+                  <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                             <ul class="pagination" id="id_pagination" style="justify-content: end;">
+                                 {% for i in values.paginator.page_range %}
+                                    {% if values.number == i %}
+                                        <li class="page-item active">
+                                            <a class="page-link page-number" href="" data-action="{{ i }}">{{ i }}</a>
+                                        </li>
+                                    {% elif values.number == values.paginator.num_pages and values.number|add:"-2" == i%}
+                                        <li class="page-item">
+                                            <a class="page-link page-number" data-action="{{ i }}">{{ i }}</a>
+                                        </li>
+                                    {% elif values.number == 1 and values.number|add:"2" == i %}
+                                        <li class="page-item">
+                                            <a class="page-link page-number" data-action="{{ i }}">{{ i }}</a>
+                                        </li>
+                                    {% elif values.number|add:"1" == i or values.number|add:"-1" == i %}
+                                        <li class="page-item">
+                                            <a class="page-link page-number" data-action="{{ i }}">{{ i }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-backdrop fade"></div>
+    </div>
+
+  </div>
+{% endblock content %}
+{% block javascript %}
+<script src="{% static 'libs/sweetalert2/sweetalert2.min.js' %}"></script>
+<script>
+    $("#id_list_entries").change(function(){
+        var entries = $("#id_list_entries option:selected").val();
+        var search = $("#id_search").val();
+        var page = $("li.page-item.active a.page-link").html();
+
+        const urlParams = new URLSearchParams(window.location.search);
+
+        urlParams.set('entries', entries);
+        urlParams.set('search', search);
+        urlParams.set('page', 1);
+
+        window.location.search = urlParams;
+    });
+    $("#id_search").change(function(){
+        var entries = $("#id_list_entries option:selected").val();
+        var search = $("#id_search").val();
+        var page = $("li.page-item.active a.page-link").html();
+
+        const urlParams = new URLSearchParams(window.location.search);
+
+        urlParams.set('entries', entries);
+        urlParams.set('search', search);
+        urlParams.set('page', 1);
+
+        window.location.search = urlParams;
+    });
+    $("a.page-link.page-number").click(function(e){
+        e.preventDefault();
+        var entries = $("#id_list_entries option:selected").val();
+        var search = $("#id_search").val();
+        var page = parseInt($(this).html());
+        if (parseInt($("li.page-item.active a.page-link").html()) != page){
+            const urlParams = new URLSearchParams(window.location.search);
+
+            urlParams.set('entries', entries);
+            urlParams.set('search', search);
+            urlParams.set('page', page);
+
+            window.location.search = urlParams;
+        }
+    });
+    $("a.page-link.with-next-row").click(function(e){
+        e.preventDefault();
+        var entries = $("#id_list_entries option:selected").val();
+        var search = $("#id_search").val();
+        var page = parseInt($("li.page-item.active a.page-link").html()) + 1;
+
+        const urlParams = new URLSearchParams(window.location.search);
+
+        urlParams.set('entries', entries);
+        urlParams.set('search', search);
+        urlParams.set('page', page);
+
+        window.location.search = urlParams;
+    });
+    $("a.page-link.with-prev-row").click(function(e){
+        e.preventDefault();
+        var entries = $("#id_list_entries option:selected").val();
+        var search = $("#id_search").val();
+        var page = parseInt($("li.page-item.active a.page-link").html()) - 1;
+
+        const urlParams = new URLSearchParams(window.location.search);
+
+        urlParams.set('entries', entries);
+        urlParams.set('search', search);
+        urlParams.set('page', page);
+
+        window.location.search = urlParams;
+    });
+</script>
+{% endblock javascript %}

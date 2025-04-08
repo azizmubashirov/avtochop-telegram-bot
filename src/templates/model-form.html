@@ -1,0 +1,11 @@
+{% for item in models %}
+<a href="{% url 'web3:add-positsion' model_id=item.id%}" class="general__list-item">
+    <span class="general__circle">
+      <span class="title">{{item.label.label_uz.0}}</span>
+      <!-- <img src="" alt="cat__1"> -->
+    </span>
+    <!-- /.general__circle -->
+    <span class="general__name">{% if LANGUAGE_CODE == 'uz' %}{{item.label.label_uz}}{% else %}{{item.label.label_ru}}{% endif %}</span>
+    <!-- /.general__name -->
+  </a>
+{% endfor %}

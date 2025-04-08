@@ -1,0 +1,114 @@
+{% extends 'web3/base.html'%}
+{% load static %}
+{% load i18n %}
+{% block content %}
+
+<div class="wrapper">
+  <section class="section__control">
+    <div class="general__container">
+      <div class="control">
+        <a href="#" onclick="history.go(-1)" class="control__back">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.5 10L12.5 15L17.5 20" stroke="#FF1700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <h3 class="control__name general-DB">{% translate 'wait_ad' %}</h3>
+        <!-- /.control__back -->
+        <button type="button" class="control__close">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 10L20 20" stroke="#FF1700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M20 10L10 20" stroke="#FF1700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      <!-- /.progress -->
+    </div>
+    <!-- /.general__container -->
+  </section>
+  <!-- /.section__progress -->
+
+  <section class="section__processes">
+    <div class="general__container">
+      <h2 class="general__title">{% translate 'wait_ad' %}</h2>
+      {% if not ads %}
+      <!-- /.general__title -->
+        <div class="processes__null">
+            <img src="{% static 'web3/img/bg/bg-processes.svg'%}" alt="null">
+            <p class="general-L">{% translate 'not_ads' %}</p>
+            <!-- /.general -->
+        </div>
+        <!-- /.processes__active -->
+      {% else %}
+      <div class="processes__list">
+        {% for ad in ads %}
+        <div class="processes__item">
+          <div class="processes__content">
+            <div class="processes__pic">
+              <img src="{{ad.images.0}}" alt="" class="process__img">
+              <!-- /.process__img -->
+            </div>
+            <!-- /.process__pic -->
+            <div class="processes__main">
+              <div class="processes__row">
+                <p class="processes__name general-M">{{ad.title}}</p>
+                <!-- /.process__name -->
+                <p class="processes__date general-M">{{ad.created_at|date:"d.m.Y"}}</p>
+                <!-- /.process__date -->
+              </div>
+              <!-- /.process__row -->
+              <h3 class="processes__price general-DB">{{ad.prices.narx}} {%if ad.currency == 1%}so'm {% else %} y.e {% endif %}</h3>
+              <!-- /.process__price -->
+              <div class="processes__row">
+                <div class="processes__count">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12.5091 5.9742L12 6.49112L11.4908 5.97412C10.5625 5.03106 9.29461 4.5 7.97132 4.5C6.64804 4.5 5.38012 5.03106 4.45182 5.97412V5.97412C2.51606 7.96337 2.51606 11.1322 4.45182 13.1215L9.84447 18.5971C10.413 19.1747 11.1896 19.5 12 19.5C12.8105 19.5 13.587 19.1747 14.1556 18.5971L19.5482 13.1216C21.4839 11.1323 21.4839 7.96347 19.5482 5.97421V5.97421C18.6199 5.03112 17.3519 4.50003 16.0286 4.50003C14.7053 4.50003 13.4374 5.03111 12.5091 5.9742Z" stroke="#C6C6C6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span class="general-M">0</span>
+                  <!-- /.general-M -->
+                </div>
+                <!-- /.process__count -->
+                <div class="processes__count">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.1218 9.87999C15.2928 11.051 15.2928 12.952 14.1218 14.125C12.9508 15.296 11.0498 15.296 9.87679 14.125C8.70579 12.954 8.70579 11.053 9.87679 9.87999C11.0498 8.70699 12.9498 8.70699 14.1218 9.87999" stroke="#C6C6C6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M3 12C3 11.341 3.152 10.689 3.446 10.088V10.088C4.961 6.991 8.309 5 12 5C15.691 5 19.039 6.991 20.554 10.088V10.088C20.848 10.689 21 11.341 21 12C21 12.659 20.848 13.311 20.554 13.912V13.912C19.039 17.009 15.691 19 12 19C8.309 19 4.961 17.009 3.446 13.912V13.912C3.152 13.311 3 12.659 3 12Z" stroke="#C6C6C6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span class="general-M">0</span>
+                  <!-- /.general-M -->
+                </div>
+                <!-- /.process__count -->
+                <div class="processes__count">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M18.7021 18.9626L19.5607 18.104C20.1464 17.5182 20.1464 16.5685 19.5607 15.9827L17.6433 14.0653C17.2682 13.6903 16.7595 13.4796 16.2291 13.4796C15.6987 13.4796 15.19 13.6903 14.8149 14.0653L13.3118 15.5684C11.0542 14.7265 9.27349 12.9458 8.43155 10.6882L9.93462 9.18509C10.7157 8.40405 10.7157 7.13773 9.93462 6.35668L8.0173 4.43934C7.736 4.15804 7.35447 4 6.95664 4C6.55881 4 6.17728 4.15804 5.89597 4.43934L5.03742 5.29788C4.37393 5.96137 4.00082 6.86103 4 7.79934V7.79934C3.9972 11.036 5.28171 14.1409 7.57037 16.4296C9.85904 18.7183 12.9639 20.0028 16.2006 20V20C17.1389 19.9992 18.0386 19.6261 18.7021 18.9626V18.9626Z" stroke="#C6C6C6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span class="general-M">0</span>
+                  <!-- /.general-M -->
+                </div>
+                <!-- /.process__count -->
+              </div>
+              <!-- /.process__row -->
+            </div>
+            <!-- /.process__main -->
+          </div>
+          <!-- /.process__content -->
+          <div  class="processes__waiting general-M">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14.2083 11C16.5 11 18.3333 12.8333 18.3333 15.125C18.3333 15.9317 18.1042 16.6925 17.7008 17.325L20.5242 20.1667L19.25 21.4408L16.39 18.6267C15.7575 19.0208 15.0058 19.25 14.2083 19.25C11.9167 19.25 10.0833 17.4167 10.0833 15.125C10.0833 12.8333 11.9167 11 14.2083 11ZM14.2083 12.8333C13.6005 12.8333 13.0177 13.0748 12.5879 13.5045C12.1581 13.9343 11.9167 14.5172 11.9167 15.125C11.9167 15.7328 12.1581 16.3157 12.5879 16.7455C13.0177 17.1752 13.6005 17.4167 14.2083 17.4167C14.8161 17.4167 15.399 17.1752 15.8288 16.7455C16.2586 16.3157 16.5 15.7328 16.5 15.125C16.5 14.5172 16.2586 13.9343 15.8288 13.5045C15.399 13.0748 14.8161 12.8333 14.2083 12.8333ZM6.41667 13.75V15.5833H8.25C8.37833 17.0042 8.98333 18.2783 9.90917 19.25H4.58333C4.0971 19.25 3.63079 19.0568 3.28697 18.713C2.94315 18.3692 2.75 17.9029 2.75 17.4167V4.58333C2.75 3.56583 3.56583 2.75 4.58333 2.75H17.4167C17.9029 2.75 18.3692 2.94315 18.713 3.28697C19.0568 3.63079 19.25 4.0971 19.25 4.58333V11.9442C18.7132 11.0926 17.9691 10.3911 17.0873 9.9053C16.2056 9.41954 15.215 9.16541 14.2083 9.16667C13.0442 9.16667 11.9533 9.50583 11.0367 10.0833H6.41667V11.9167H9.16667C8.83667 12.4667 8.56167 13.09 8.40583 13.75H6.41667ZM15.5833 8.25V6.41667H6.41667V8.25H15.5833Z" fill="#FF6B00"/>
+            </svg>
+            {% translate 'wait' %}
+          </div>
+          <!-- /.process__tg -->
+        </div>
+        <!-- /.process__item -->
+        {% endfor %}
+      </div>
+      {% endif %}
+      <!-- /.processes__list -->
+    </div>
+    <!-- /.general__container -->
+  </section>
+  <!-- /.section__processes -->
+
+</div>
+<!-- /.wrapper -->
+
+{% endblock content %}

@@ -1,0 +1,132 @@
+*, ::after, ::before {
+  box-sizing: border-box!important;
+}
+.general {
+    &__container {
+        padding: 0 .65rem;
+    }
+    &__top {
+
+    }
+    &__title {
+        font-family: "TTCommons-DB";
+        font-size: 1.5rem;
+        line-height: 1.7rem;
+    }
+    &__subtitle {
+        font-size: 1.1rem;
+        color: var(--main-color-black);
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+    }
+    &__list {
+        background-color: var(--main-color-white);
+        border-radius: .5rem;
+        &-item {
+            position: relative;
+            width: 100%;
+            padding: .5rem;
+            @include flexStart();
+            border-bottom: 1px solid #F1F2F2;
+        }
+    }
+    &__name {
+        color: var(--main-color-black);
+        font-size: 1rem;
+        font-family: "TTCommons-R";
+    }
+    &__circle {
+        background-color: var(--main-color-grey);
+        @include flexCenter();
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        margin-right: .75rem;
+        .title {
+            font-size: 1.5rem;
+            color: var(--main-color-grey-2);
+            font-family: "TTCommons-R";
+            line-height: 100%;
+        }
+        img {
+            display: block;
+            max-width: 2rem;
+            height: auto;
+            object-fit: contain;
+        }
+        .colour {
+            position: relative;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+        }
+    }
+    &__checked {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 1rem;
+        display: block;
+        width: 1.1rem;
+        svg {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+    }
+    &__txt {
+        color: #868686;
+        font-family: "TTCommons-R";
+        font-size: .65rem;
+        line-height: 120%;
+    }
+    &__form {
+        button:disabled {
+            background-color: var(--main-color-white);
+            color: var(--main-color-sky);
+        }
+    }
+    &__next {
+        @include flexCenter();
+        font-size: .9rem;
+        height: 2.5rem;
+        width: 100%;
+        border-radius: .5rem;
+        transition: .3s all;
+        border: none;
+        background-color: var(--main-color-sky);
+        color: var(--main-color-white);
+        &.active {
+            background-color: var(--main-color-sky);
+            color: var(--main-color-white);
+        }
+        &:disabled {
+            background-color: var(--main-color-white);
+            color: var(--main-color-sky);
+        }
+    }
+    &-R {
+        font-family: "TTCommons-R";
+    }
+    &-DB {
+        font-family: "TTCommons-DB";
+    }
+    &-M {
+        font-family: "TTCommons-M";
+    }
+    &-L {
+        font-family: "TTCommons-L";
+    }
+}
+@media (max-width: 900.98px) {
+    .general {
+        &__container {
+
+        }
+        &__top {
+
+        }
+        &__title {
+        }
+    }
+}

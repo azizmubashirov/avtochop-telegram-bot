@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block css %}
+{% load payment_type %}
+<link href="{% static 'libs/sweetalert2/sweetalert2.min.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock css %}
+{% block content %}
+<ul class="list-unstyled topnav-menu topnav-menu-left m-0">
+    <li>
+        <h4 class="page-title-main">Foydalanuvchi haqida ma'lumot</h4>
+    </li>
+ </ul>
+<div class="row">
+    <div class="col-12">
+        <div class="card-box">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped mb-0">
+                    <tbody>
+                    <tr>
+                        <td width="35%">Ism</td>
+                        <td width="35%">{% if user.firstname %} {{ user.firstname }}{% endif %}</td>
+
+                    </tr>
+                    <tr>
+                        <td>Familiya</td>
+                        <td>{% if user.lastname %}{{ user.lastname }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td>Ism (Telegram)</td>
+                        <td>{% if user.tg_firstname %}{{user.tg_firstname }} {% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td>Familiya (Telegram)</td>
+                            <td>{% if user.tg_lastname %}{{user.tg_lastname }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td>Telegram ID</td>
+                        <td>{% if user.chat_id %} {{ user.chat_id }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td>Telefon raqam</td>
+                        <td>{{ user.phone_number }}</td>
+                    </tr>
+                    <tr>
+                        <td>Balans</td>
+                        <td>{{balans|price_format}} so'm</td>
+                    </tr>
+
+                    <tr>
+                        <td>TezElon qo'shilgan vaqti</td>
+                        <td>{{ user.date_joined|format_date}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div><!-- end col -->
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box">
+            <h4 class="mt-0 header-title">To'lov va Hsioblar</h4>
+            <p class="text-muted font-14 mb-3"></p>
+            <div class="table-responsive">
+                <table class="table table-sm mb-0" style="width: 100%;">
+                    <colgroup>
+                       <col span="1" style="width: 25%;">
+                       <col span="1" style="width: 25%;">
+                       <col span="1" style="width: 25%;">
+                       <col span="1" style="width: 25%;">
+
+
+                    </colgroup>
+                    <thead class="thead-dark">
+                        <tr>
+                            <th class="text-left"><h5 class="text-muted"><b>To'lov holati</b></h5></th>
+                            <th class="text-center"><h5 class="text-muted"><b>Summa</b></h5></th>
+                            <th class="text-center">
+                                <h5 class="text-muted"><b>Qo'shilgan voqt</b></h5>
+                            </th>
+                            <th class="text-center"><h5 class="text-muted"><b>To'lov turi</b></h5></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for history in balans_history.items %}
+                        {% if history.debit != '0' and history.credit == '0' %}
+                            <tr>
+                                <td class="table-user">
+                                   <span class="badge badge-success">To'ldirilgan hisob</span></td>
+                                <td class="text-center" style="max-width:10px; min-width:10px; word-wrap:break-word;">
+                                    {{history.debit}} сум
+                                </td>
+                                <td class="text-center">
+                                   {{history.created_at}}
+                                </td>
+                                <td class="text-center" >
+                                    {% if history.payment_type == 1 %}
+                                        <span class="badge badge-purple">payme</span>
+                                    {% elif history.payment_type == 2 %}
+                                       <span class="badge badge-purple">click</span>
+                                    {% elif history.payment_type == 3 %}
+                                        <span class="badge badge-purple">click</span>
+                                    {% elif history.payment_type == 4 %}
+                                        <span class="badge badge-purple">TezElon</span>
+                                    {% endif %}
+                                </td>
+
+
+                            </tr>
+                        {% elif history.credit != '0' and history.debit == '0' %}
+                            <tr>
+                                <td class="table-user">
+                                   <span class="badge badge-primary">Sarflangan pul</span> </td>
+                                <td class="text-center" style="max-width:10px; min-width:10px; word-wrap:break-word;">
+                                    -{{history.credit}} сум
+                                </td>
+                                <td class="text-center">
+                                   	{{ history.created_at }}
+                                </td>
+                                <td class="text-center" >
+                                    {% if history.ad.id %}
+                                        <a href="{% url 'dashboard:ads-view' ad_id=history.ad.id %}">{{ history.ad.id }}</a>
+                                    {% endif %}
+                                </td>
+
+                            </tr>
+                        {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

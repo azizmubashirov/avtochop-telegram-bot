@@ -1,0 +1,104 @@
+{% extends 'web3/base.html'%}
+{% load static %}
+{% load i18n %}
+{% block content %} 
+
+<div class="wrapper">
+  <section class="section__control">
+    <div class="general__container">
+      <div class="control">
+        <!-- /.control__back -->
+        <button type="button" class="control__close">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 10L20 20" stroke="#FF1700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M20 10L10 20" stroke="#FF1700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      <!-- /.progress -->
+    </div>
+    <!-- /.general__container -->
+  </section>
+  <!-- /.section__progress -->
+
+  <section class="section__processes">
+    <div class="general__container">
+      <h2 class="general__title">{% translate 'my_ads_text' %}</h2>
+      <!-- /.general__title -->
+      <div class="processes">
+        <a href="{% url 'web3:my-ads-active' user_id=user_id %}" class="processes__link">
+          <span class="general__circle" style="background-color: #E1FFEF;">
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13.25 20.75L22.0625 11.9375L20.3125 10.1875L13.25 17.25L9.6875 13.6875L7.9375 15.4375L13.25 20.75ZM15 27.5C13.2708 27.5 11.6458 27.1717 10.125 26.515C8.60417 25.8592 7.28125 24.9688 6.15625 23.8438C5.03125 22.7188 4.14083 21.3958 3.485 19.875C2.82833 18.3542 2.5 16.7292 2.5 15C2.5 13.2708 2.82833 11.6458 3.485 10.125C4.14083 8.60417 5.03125 7.28125 6.15625 6.15625C7.28125 5.03125 8.60417 4.14042 10.125 3.48375C11.6458 2.82792 13.2708 2.5 15 2.5C16.7292 2.5 18.3542 2.82792 19.875 3.48375C21.3958 4.14042 22.7188 5.03125 23.8438 6.15625C24.9688 7.28125 25.8592 8.60417 26.515 10.125C27.1717 11.6458 27.5 13.2708 27.5 15C27.5 16.7292 27.1717 18.3542 26.515 19.875C25.8592 21.3958 24.9688 22.7188 23.8438 23.8438C22.7188 24.9688 21.3958 25.8592 19.875 26.515C18.3542 27.1717 16.7292 27.5 15 27.5Z" fill="#00D160"/>
+          </svg>
+          </span>
+          <!-- /.general__circle -->
+          <span class="general__name">{% translate 'active_ads' %}</span>
+          <!-- /.general__name -->
+          <span class="general__checked">
+              <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12.5 10L17.5 15L12.5 20" stroke="#C5C5C5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+
+            </span>
+          <!-- /.general__check -->
+        </a>
+        <!-- /.processes__link -->
+        <a href="{% url 'web3:my-ads-process' user_id=user_id %}" class="processes__link">
+          <span class="general__circle" style="background-color: #FFF3E6;">
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M19.375 15C22.5 15 25 17.5 25 20.625C25 21.725 24.6875 22.7625 24.1375 23.625L27.9875 27.5L26.25 29.2375L22.35 25.4C21.4875 25.9375 20.4625 26.25 19.375 26.25C16.25 26.25 13.75 23.75 13.75 20.625C13.75 17.5 16.25 15 19.375 15ZM19.375 17.5C18.5462 17.5 17.7513 17.8292 17.1653 18.4153C16.5792 19.0013 16.25 19.7962 16.25 20.625C16.25 21.4538 16.5792 22.2487 17.1653 22.8347C17.7513 23.4208 18.5462 23.75 19.375 23.75C20.2038 23.75 20.9987 23.4208 21.5847 22.8347C22.1708 22.2487 22.5 21.4538 22.5 20.625C22.5 19.7962 22.1708 19.0013 21.5847 18.4153C20.9987 17.8292 20.2038 17.5 19.375 17.5ZM8.75 18.75V21.25H11.25C11.425 23.1875 12.25 24.925 13.5125 26.25H6.25C5.58696 26.25 4.95107 25.9866 4.48223 25.5178C4.01339 25.0489 3.75 24.413 3.75 23.75V6.25C3.75 4.8625 4.8625 3.75 6.25 3.75H23.75C24.413 3.75 25.0489 4.01339 25.5178 4.48223C25.9866 4.95107 26.25 5.58696 26.25 6.25V16.2875C25.5179 15.1262 24.5033 14.1696 23.3009 13.5072C22.0985 12.8448 20.7478 12.4983 19.375 12.5C17.7875 12.5 16.3 12.9625 15.05 13.75H8.75V16.25H12.5C12.05 17 11.675 17.85 11.4625 18.75H8.75ZM21.25 11.25V8.75H8.75V11.25H21.25Z" fill="#FF6B00"/>
+</svg>
+          </span>
+        <!-- /.general__circle -->
+          <span class="general__name">{% translate 'wait_ads' %}</span>
+        <!-- /.general__name -->
+          <span class="general__checked">
+              <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12.5 10L17.5 15L12.5 20" stroke="#C5C5C5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+            </span>
+          <!-- /.general__check -->
+        </a>
+        <!-- /.processes__link -->
+        <a href="{% url 'web3:my-ads-refused' user_id=user_id %}" class="processes__link">
+          <span class="general__circle" style="background-color: #FFF1EF;">
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.9875 2.5C8.0875 2.5 2.5 8.1 2.5 15C2.5 21.9 8.0875 27.5 14.9875 27.5C21.9 27.5 27.5 21.9 27.5 15C27.5 8.1 21.9 2.5 14.9875 2.5ZM20 20C19.8844 20.1159 19.747 20.2078 19.5958 20.2705C19.4446 20.3333 19.2825 20.3656 19.1187 20.3656C18.955 20.3656 18.7929 20.3333 18.6417 20.2705C18.4905 20.2078 18.3531 20.1159 18.2375 20L14.125 15.8875C14.0069 15.7717 13.9129 15.6337 13.8486 15.4813C13.7842 15.329 13.7507 15.1654 13.75 15V10C13.75 9.3125 14.3125 8.75 15 8.75C15.6875 8.75 16.25 9.3125 16.25 10V14.4875L20 18.2375C20.4875 18.725 20.4875 19.5125 20 20Z" fill="#FF1700"/>
+<path d="M20 20C19.8844 20.1159 19.747 20.2078 19.5958 20.2705C19.4446 20.3333 19.2825 20.3656 19.1187 20.3656C18.955 20.3656 18.7929 20.3333 18.6417 20.2705C18.4905 20.2078 18.3531 20.1159 18.2375 20L14.125 15.8875C14.0069 15.7717 13.9129 15.6337 13.8486 15.4813C13.7842 15.329 13.7507 15.1654 13.75 15V10C13.75 9.3125 14.3125 8.75 15 8.75C15.6875 8.75 16.25 9.3125 16.25 10V14.4875L20 18.2375C20.4875 18.725 20.4875 19.5125 20 20Z" fill="#FF1700"/>
+<path d="M10.3332 20.8333L9.1665 19.6666L13.8332 15L9.1665 10.3333L10.3332 9.16663L14.9998 13.8333L19.6665 9.16663L20.8332 10.3333L16.1665 15L20.8332 19.6666L19.6665 20.8333L14.9998 16.1666L10.3332 20.8333Z" fill="white"/>
+</svg>
+          </span>
+        <!-- /.general__circle -->
+          <span class="general__name">{% translate 'refused_ads' %}</span>
+        <!-- /.general__name -->
+          <span class="general__checked">
+              <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12.5 10L17.5 15L12.5 20" stroke="#C5C5C5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
+            </span>
+          <!-- /.general__check -->
+        </a>
+        <!-- /.processes__link -->
+      </div>
+      <!-- /.processes -->
+    </div>
+    <!-- /.general__container -->
+  </section>
+  <!-- /.section__processes -->
+
+</div>
+
+{% endblock content %}
+{% block javascript %}
+<script>
+  window.Telegram.WebApp.onEvent('control__close', function(object) {
+  if (object.status == 'paid') {
+    window.Telegram.WebApp.close();
+  } else if (object.status == 'failed') {
+    window.Telegram.WebApp.showAlert("Не беспокойтесь. Мы сохраним ваш выбор.");
+  }
+});
+</script>
+{% endblock javascript %}

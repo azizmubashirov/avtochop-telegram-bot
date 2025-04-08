@@ -1,0 +1,137 @@
+
+{% extends 'web3/base.html'%}
+{% load static %}
+{% block content %}
+
+<div class="wrapper">
+  <section class="section__control">
+    <div class="general__container">
+      <div class="control">
+        <a href="#" onclick="history.go(-1)" class="control__back">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.5 10L12.5 15L17.5 20" stroke="#FF1700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <!-- /.control__back -->
+
+      </div>
+      <!-- /.progress -->
+    </div>
+    <!-- /.general__container -->
+
+    <!-- /.control__progress -->
+  </section>
+  <!-- /.section__progress -->
+
+  <section class="section__finished">
+    <div class="general__container">
+      <h2 class="general__title">{{model.title}}</h2>
+      <!-- /.general__title -->
+      <form action="" class="finiched__form" method="post">
+        {% csrf_token %}
+        <div class="swiper finished__slider">
+          <div class="swiper-wrapper">
+            {% for image in model.images %}
+            <div class="swiper-slide">
+              <div class="finished__item">
+                <img src="{{image}}" alt="">
+              </div>
+              <!-- /.finished__item -->
+            </div>
+            {% endfor %}
+          </div>
+          <div class="finished__slider-prev finished__slider-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14 8L10 12L14 16" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="finished__slider-next finished__slider-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 8L14 12L10 16" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="finished__slider-pagination"></div>
+        </div>
+
+        <div class="finished__list">
+          {% for key, value in caption.items %}
+          <li>
+            <p class="general-R">{{key}}</p>
+            <!-- /.general-R -->
+            <input class="general-M" value="{{value}}" disabled>
+            <!-- /.general-M -->
+          </li>
+          {% endfor %}
+
+          <li>
+            <p class="general-R">Narxi</p>
+            <!-- /.general-R -->
+            {% if model.currency == 1 %}
+            <input class="general-M" value="{{model.prices.narx}} so'm" disabled>
+            {% else %}
+            <input class="general-M" value="{{model.prices.narx}} y.e" disabled>
+            {% endif %}
+            <!-- /.general-M --></li>
+            <li>
+              <p class="general-R">Kami</p>
+              <!-- /.general-R -->
+              {% if model.torg == 1 %}
+              <input class="general-M" value="Bor" disabled>
+              {% else %}
+              <input class="general-M" value="Yo'q" disabled>
+              {% endif %}
+              <!-- /.general-M --></li>
+          <li>
+            <p class="general-R">Telefon raqam</p>
+            <!-- /.general-R -->
+            <input class="general-M" value="{{ model.contact.tel_1}}" disabled>
+            <!-- /.general-M --></li>
+          {% if model.contact.tel_2 %}
+          <li>
+            <p class="general-R">Telefon raqam</p>
+            <!-- /.general-R -->
+            <input class="general-M" value="{{ model.contact.tel_2}}" disabled>
+            <!-- /.general-M --></li>
+          {% endif %}
+        </div>
+        <!-- /.finished__list -->
+        <div class="finished__comment">
+          <textarea class="comment general-R" disabled>{{model.description }}</textarea>
+          <!-- /.comment -->
+        </div>
+        <!-- /.finished__comment -->
+        <button type="button" onclick="CheckFun('{{model.id}}')" class="general__next finished__btn finished__submit" >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 15px">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M18.7021 18.9626L19.5607 18.104C20.1464 17.5182 20.1464 16.5685 19.5607 15.9827L17.6433 14.0653C17.2682 13.6903 16.7595 13.4796 16.2291 13.4796C15.6987 13.4796 15.19 13.6903 14.8149 14.0653L13.3118 15.5684C11.0542 14.7265 9.27349 12.9458 8.43155 10.6882L9.93462 9.18509C10.7157 8.40405 10.7157 7.13773 9.93462 6.35668L8.0173 4.43934C7.736 4.15804 7.35447 4 6.95664 4C6.55881 4 6.17728 4.15804 5.89597 4.43934L5.03742 5.29788C4.37393 5.96137 4.00082 6.86103 4 7.79934V7.79934C3.9972 11.036 5.28171 14.1409 7.57037 16.4296C9.85904 18.7183 12.9639 20.0028 16.2006 20V20C17.1389 19.9992 18.0386 19.6261 18.7021 18.9626V18.9626Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+          <span>Telefon raqamini ochish</span></button>
+
+      </form>
+
+    </div>
+    <!-- /.general__container -->
+  </section>
+  <!-- /.section__finished -->
+
+</div>
+<!-- /.wrapper -->
+
+{% endblock content %}
+{% block javascript %}
+<script>
+function CheckFun(id) {
+  $.ajax({
+    url: window.location.href,
+    method: 'GET',
+    dataType: 'html',
+    data: { 'ad_id': id},
+    success: function(data){
+      $('.finished__btn span').html("Telefon raqam botga jo'natildi!")
+      setTimeout(function(){
+              window.location.href = "https://t.me/Avtopikbot"
+      }, 1000)
+    }
+    });
+}
+</script>
+{% endblock javascript %}

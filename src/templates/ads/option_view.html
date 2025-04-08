@@ -1,0 +1,18 @@
+{% if cat.get_children %}
+    {% if padding == "" %}
+    <option style="font-weight: bold;" value="{{ cat.id }}" {% if category == cat.id %}selected{% endif %}>{{ cat.title.title_uz }}</option>
+    {% else %}
+    <option value="{{ cat.id }}" {% if category == cat.id %}selected{% endif %}>{{ padding }} {{ cat.title.title_uz }}</option>
+    {% endif %}
+    {% for cat_child in cat.get_children|dictsort:"id" %}
+        {% with cat=cat_child padding="-"|add:padding %}
+           {% include 'ads/option_view.html' %}
+        {% endwith %}
+    {% endfor %}
+{% else %}
+{% if padding == "" %}
+    <option style="font-weight: bold;" value="{{ cat.id }}" {% if category == cat.id %}selected{% endif %}>{{ cat.title.title_uz }}</option>
+    {% else %}
+    <option value="{{ cat.id }}" {% if category == cat.id %}selected{% endif %}>{{ padding }} {{ cat.title.title_uz }}</option>
+    {% endif %}
+{% endif %}

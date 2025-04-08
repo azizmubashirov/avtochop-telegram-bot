@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link href="{% static 'libs/multiselect/multi-select.css' %}"  rel="stylesheet" type="text/css" />
+<link href="{% static 'libs/select2/select2.min.css' %}" rel="stylesheet" type="text/css" />
+<link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css" rel="stylesheet" type="text/css" />
+{% endblock css %}
+{% block content %}
+<div class="layout-page">
+    <!-- Content wrapper -->
+    <div class="content-wrapper">
+      <!-- Content -->
+
+      <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="py-3 breadcrumb-wrapper mb-4">
+        </h4>
+        <div class="col-md-12">
+            <div class="card mb-4">
+             <h5 class="card-header">Default</h5>
+             <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row card-body col-md-12">
+                    <div class="col-md-6">
+                        <div class="row mb-3">
+                            <div class="form-group col-md-6">
+                                {{ form.title_uz.errors }}
+                                <label class="form-control-label" for="{{ form.title_uz.id_for_label }}">{{ form.title_uz.label }}</label>
+                                {{ form.title_uz }}
+                                
+                            </div>
+                            <div class="form-group col-md-6">
+                                {{ form.title_ru.errors }}
+                                <label class="form-control-label" for="{{ form.title_ru.id_for_label }}">{{ form.title_ru.label }}</label>
+                                {{ form.title_ru }}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="form-group col-md-6">
+                                {{ form.description_uz.errors }}
+                                <label class="form-control-label" for="{{ form.description_uz.id_for_label }}">{{ form.description_uz.label }}</label>
+                                {{ form.description_uz }}
+                            </div>
+                            <div class="form-group col-md-6">
+                                {{ form.description_ru.errors }}
+                                <label class="form-control-label" for="{{ form.description_ru.id_for_label }}">{{ form.description_ru.label }}</label>
+                                {{ form.description_ru }}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="form-group col-md-6">
+                                {{ form.sort_order.errors }}
+                                <label class="form-control-label" for="{{ form.sort_order.id_for_label }}">{{ form.sort_order.label }}</label>
+                                {{ form.sort_order }}
+                            </div>
+                            <div class="form-group col-md-6">
+                                {{ form.alias.errors }}
+                                <label class="form-control-label" for="{{ form.alias.id_for_label }}">{{ form.alias.label }}</label>
+                                {{ form.alias }}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="form-group col-md-6 mt-4">
+                                {{ form.is_active.errors }}
+                                {{ form.is_active }}
+                                <label class="form-control-label" for="{{ form.is_active.id_for_label }}">{{ form.is_active.label }}</label>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-bordered mt-3" style="width: 100%">
+                                            <colgroup>
+                                                <col span="1" style="width: 33%">
+                                                <col span="1" style="width: 34%">
+                                                <col span="1" style="width: 33%">
+                                            </colgroup>
+                                            <thead>
+                                            <tr>
+                                                <th class="text-center">Kategoriya</th>
+                                                <th class="text-center">Limit</th>
+                                                <th class="text-center">Narx</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{ formset.management_form }}
+                                                {% for cat_form in formset %}
+                                                <tr>
+                                                    <td class="text-center">
+                                                        {{ cat_form.label }}
+                                                        {{ cat_form.category }}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        {{ cat_form.limit }}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        {{ cat_form.price }}
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div><!-- end col -->
+                            </div>
+                    </div>
+                    <div class="pt-4">
+                        <button type="submit" class="btn btn-primary me-sm-3 me-1">Save</button>
+                        <a href="{% url 'dashboard:entity-list' %}" type="reset" class="btn btn-label-secondary">Cancel</a>
+                    </div>
+                </div>
+            </form>
+
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+{% block javascript %}
+<script src="{% static 'libs/multiselect/jquery.multi-select.js' %}"></script>
+<script src="{% static 'libs/select2/select2.min.js' %}"></script>
+<script src="{% static 'libs/jquery-quicksearch/jquery.quicksearch.min.js' %}"></script>
+<script>
+$("#my_multi_select3").multiSelect(
+    {
+    selectableHeader:"<input type='text' class='form-control search-input' autocomplete='off' placeholder='Qidirish...'>",
+    selectionHeader:"<input type='text' class='form-control search-input' autocomplete='off' placeholder='Qidirish...'>",
+    afterInit:function(e){
+        var t=this,
+        a=t.$selectableUl.prev(),
+        n=t.$selectionUl.prev(),
+        s="#"+t.$container.attr("id")+" .ms-elem-selectable:not(.ms-selected)",
+        r="#"+t.$container.attr("id")+" .ms-elem-selection.ms-selected";
+        t.qs1=a.quicksearch(s).on("keydown",function(e){
+            if(40===e.which)return t.$selectableUl.focus(),!1
+        }),
+        t.qs2=n.quicksearch(r).on("keydown",function(e){
+            if(40==e.which)return t.$selectionUl.focus(),!1
+        })
+        e.css("max-width", "100%");
+        e.css("width", "100%");
+    },
+    afterSelect: function(value, text){
+        var get_val = $("#multiple_value").val();
+        var hidden_val = (get_val != "") ? get_val+"," : get_val;
+        $("#multiple_value").val(hidden_val+""+value);
+        this.qs1.cache(),
+        this.qs2.cache()
+    },
+    afterDeselect: function(value, text){
+        var get_val = $("#multiple_value").val();
+        var new_val = get_val.replace(value, "");
+        $("#multiple_value").val(new_val);
+        this.qs1.cache(),
+        this.qs2.cache()
+    },
+    keepOrder: true
+});
+const selected = "{{ form.get_selected_attributes }}".split(" ");
+if(selected.length > 0) {
+  $.each(selected, function(index, data){
+    $('#my_multi_select3').multiSelect("select", data);
+  })
+}
+
+</script>
+{% endblock javascript %}

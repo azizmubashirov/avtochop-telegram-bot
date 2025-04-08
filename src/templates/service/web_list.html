@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load payment_type %}
+{% block css %}
+<link href="{% static 'libs/sweetalert2/sweetalert2.min.css' %}" rel="stylesheet" type="text/css"/>
+<link href="{% static 'libs/switchery/switchery.min.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock css %}
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        
+        <div class="card-box">
+            <div class="dropdown float-right">
+                <div class="btn btn-success waves-effect waves-light btn-sm"><a href="{% url 'dashboard:web-service-create' %}" class="text-white"><i class="fa fa-plus mr-1"></i> <span>Qo'shish</span></a></div>
+            </div>
+            <h4 class="mt-0 header-title">Web Servislar</h4>
+            <p class="text-muted font-14 mb-3"></p>
+            <div class="table-responsive">
+                <table class="table table-sm mb-0" style="width: 100%;">
+                     <colgroup>
+                       <col span="1" style="width: 5%;">
+                       <col span="1" style="width: 5%;">
+                       <col span="1" style="width: 15%;">
+                       <col span="1" style="width: 35%;">
+                       <col span="1" style="width: 15%;">
+                       <col span="1" style="width: 25%;">
+                    </colgroup>
+                    <thead class="thead-dark">
+                        <tr>
+                            <th></th>
+                            <th class="text-center">#</th>
+                            <th class="text-center">Sarlavha</th>
+                            <th class="text-center">Tasnif</th>
+                            <th class="text-center">Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ser in web_services %}
+                        <tr style="background-color:#f1f5f7;">
+                            <td id="id_parent_row_{{ ser.service.id }}" onclick="show_children({{ ser.service.id }})" data-action="close">
+                                <i class="ti-angle-right"></i>
+                            </td>
+                            <td class="text-center">{{ ser.service.sort_order }}</td>
+                            <td class="text-center">{{ ser.service.title.title_uz }}</td>
+                            <td class="text-center">{{ ser.service.title.title_uz }}</td>
+                            <td class="text-center">
+                                {% if ser.service.is_active %}
+                                <span class="badge badge-success p-1 m-1">Aktiv</span>
+                                {% else %}
+                                <span class="badge badge-danger p-1 m-1">Aktiv Emas</span>
+                                {% endif %}
+                            </td>
+                            <td class="text-right">
+                                <div class="btn-group" style="float: none;">
+                                    <a href="{% url 'dashboard:web-service-edit' service_id=ser.service.id %}" class="tabledit-edit-button btn btn-xs btn-warning" style="float: none;">
+                                        <span class="mdi mdi-pencil"></span>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr id="id_parent_row_{{ ser.service.id }}_children" class="id_parent_row_{{ ser.service.id }}" style="display:none;">
+                                <td colspan="7">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-bordered mt-3" style="width: 100%">
+                                            <colgroup>
+                                                <col span="1" style="width: 33%">
+                                                <col span="1" style="width: 34%">
+                                                <col span="1" style="width: 33%">
+                                            </colgroup>
+                                            <thead>
+                                            <tr class="table-warning">
+                                                <th class="text-center">Kategoriya</th>
+                                                <th class="text-center">Narx</th>
+                                                <th class="text-center">Qo'shilgan vaqti</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for child in ser.categories %}
+                                                <tr>
+                                                    <td class="text-center">{{ child.category.title.title_uz }}</td>
+                                                    <td class="text-center">{{ child.price }} so'm</td>
+                                                    <td class="text-center">{{ child.created_at }}</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+{% block javascript %}
+<script src="{% static 'libs/sweetalert2/sweetalert2.min.js' %}"></script>
+<script src="{% static 'libs/switchery/switchery.min.js' %}"></script>
+<script>
+    $('[data-plugin="switchery"]').each(function(e,t){new Switchery($(this)[0],$(this).data())})
+</script>
+<script>
+    $(".toggle-service-status").change(function(e){
+        e.preventDefault();
+        var checkbox = $(this);
+        var status_value = $(this).val();
+        var delete_url = "";
+        Swal.fire(
+            {
+            title:"Diqqat",
+            text: if(status_value == "on"){return "Ushbu servisni aktivlashtirasizmi?"}else{return "Ushbu servisni toxtatmoqchmisiz?"},
+            type:"warning",
+            showCancelButton:true,
+            confirmButtonColor:"#3085d6",
+            cancelButtonColor:"#d33",
+            confirmButtonText:"Xa",
+            cancelButtonText:"Yo'q"
+            }
+        ).then(function(result){
+            if (result.value) {
+                $.ajax({
+                    type: 'GET',
+                    url: "",
+                    data: {
+                        "status": status_value
+                    },
+                    success: function (response) {
+                        if(status_value == "on"){
+                            checkbox.val = "off";
+                        }else if(status_value == "off"){
+                            checkbox.val = "on";
+                        }
+                        Swal.fire({
+                            title: "Bajarildi!",
+                            text: if(status_value == "on"){return "Tanlangan servis toxtatildi!"}else{return "Tanlangan servis aktivlashtirildi!"},
+                            type: "success",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        setTimeout(function() { window.location.reload(); }, 1500);
+                    },
+                    error: function (error) {
+                        Swal.fire("Xato", "error")
+                    }
+                })
+            }
+        })
+    });
+    $(".sa-warning").click(function(e){
+        var delete_url = $(this).attr('href');
+        e.preventDefault();
+        Swal.fire(
+            {
+            title:"O'chirib tashlash",
+            text:"Siz shu qiymatni o'chirib tashlamoqchimisiz?",
+            type:"warning",
+
+            showCancelButton:true,
+            confirmButtonColor:"#3085d6",
+            cancelButtonColor:"#d33",
+            confirmButtonText:"Xa",
+            cancelButtonText:"Yo'q"
+            }
+        ).then(function(result){
+            if (result.value) {
+                $.ajax({
+                    type: 'GET',
+                    url: delete_url,
+                    success: function (response) {
+                        Swal.fire({
+                            title: "O'chirildi!",
+                            text: "Tanlangan qiymat o'chirildi!",
+                            type: "success",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        setTimeout(function() { window.location.reload(); }, 1500);
+                    },
+                    error: function (error) {
+                        Swal.fire("Xato", "Talangan qiymatni o'chirilmadi!", "error")
+                    }
+                })
+            }
+        })
+    });
+</script>
+<script>
+function show_children(parent_id){
+    var data_model_name = "id_parent_row_" + parent_id;
+    var action = $("#"+data_model_name).attr("data-action");
+    if(action == "close"){
+        $("."+data_model_name).css("display", "");
+        $("#"+data_model_name).attr("data-action", "open");
+        $("#"+data_model_name).html('<i class="ti-angle-down"></i>');
+<!--        $("#"+data_model_name).parent('tr').addClass('table-info');-->
+<!--        $("#"+data_model_name).parent('tr').css("background-color", "#f1f5f7");-->
+
+    }else{
+        $("."+data_model_name).css("display", "none");
+        $("#"+data_model_name).attr("data-action", "close");
+        $("#"+data_model_name).html('<i class="ti-angle-right"></i>');
+<!--        $("#"+data_model_name).parent('tr').removeClass('table-info');-->
+<!--        $("#"+data_model_name).parent('tr').css("background-color", "");-->
+    }
+}
+</script>
+{% endblock javascript %}

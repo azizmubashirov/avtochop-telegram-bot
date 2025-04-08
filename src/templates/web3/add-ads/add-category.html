@@ -1,0 +1,68 @@
+{% extends 'web3/base.html'%}
+{% load static %}
+{% load i18n %}
+{% block content %}
+
+<div class="wrapper">
+  <section class="section__control">
+    <div class="general__container">
+      <div class="control">
+        <h3 class="control__name general-DB">{% translate 'new_ad'%}</h3>
+        <!-- /.control__name -->
+      </div>
+      <!-- /.progress -->
+    </div>
+    <!-- /.general__container -->
+    <div class="control__progress">
+      <span class="progress" style="width: 5%;"></span>
+      <!-- /.progress -->
+    </div>
+    <!-- /.control__progress -->
+  </section>
+  <!-- /.section__progress -->
+
+  <section class="section__category">
+    <div class="general__container">
+      <h2 class="general__title">{% translate 'category_name'%}</h2>
+      <!-- /.general__title -->
+      <form action="" class="form__category">
+        {% for category in categories.items %}
+        <div class="category__container">
+          <h3 class="general__subtitle">{% if LANGUAGE_CODE == 'uz' %}{{ category.title.title_uz}}{% else %}{{ category.title.title_ru}}{% endif %}</h3>
+          <!-- /.general__subtitle -->
+          <div class="category__list">
+            {% if category.children %}
+            {% for children_cat in category.children %}
+            <a href="{% url 'web3:add-marka' category_id=children_cat.id %}" class="category__button">
+              <span class="general__circle">
+              {% if children_cat.image %}
+                <img src="https://avtopikbot.uz/media/{{children_cat.image}}">
+              {% else %}
+                <span class="title">{{ children_cat.title.title_uz.0}}</span>
+              {% endif %}
+              </span>
+              <span class="general__name">{% if LANGUAGE_CODE == 'uz' %}{{ children_cat.title.title_uz}}{% else %}{{ children_cat.title.title_ru}}{% endif %}</span>
+            </a>
+            {% endfor %}
+            {% endif %}
+          </div>
+          <!-- /.category__list -->
+        </div>
+        {% endfor %}
+        <!-- /.category__container -->
+      </form>
+      <!-- /.form__category -->
+    </div>
+    <!-- /.general__container -->
+  </section>
+  <!-- /.section__category -->
+
+</div>
+<!-- /.wrapper -->
+{% endblock content %}
+{% block javascript %}
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+  Telegram.WebApp.ready()
+</script>
+{% endblock javascript %}

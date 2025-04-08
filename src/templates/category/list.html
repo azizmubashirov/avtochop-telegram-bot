@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'libs/datatables-bs5/datatables.bootstrap5.css'%}" />
+<link rel="stylesheet" href="{% static 'libs/datatables-responsive-bs5/responsive.bootstrap5.css'%}" />
+<link rel="stylesheet" href="{% static 'libs/datatables-buttons-bs5/buttons.bootstrap5.css'%}" />
+<link rel="stylesheet" href="{% static 'libs/select2/select2.css'%}" />
+<link rel="stylesheet" href="{% static 'libs/formvalidation/dist/css/formValidation.min.css'%}" />
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+{% endblock css %}
+{% block content %}
+
+<div class="layout-overlay layout-menu-toggle"></div>
+<div class="layout-page">
+    <div class="content-wrapper">
+      <!-- Content -->
+      <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="py-3 breadcrumb-wrapper mb-4">
+          <span class="text-muted fw-light"></span> Kategoriyalar
+        </h4>
+
+        <div class="card">
+          <div class="card-header flex-column flex-md-row">
+
+              <div class="dt-action-buttons text-end pt-3 pt-md-0">
+                  <div class="dt-buttons">
+                     <a href="{% url 'dashboard:category-create' %}" class="dt-button create-new btn btn-primary" tabindex="0" aria-controls="DataTables_Table_0" type="button">
+                          <span><i class="bx bx-plus me-sm-2"></i>
+                              <span class="d-none d-sm-inline-block">Kategoriya Qo'shish</span>
+                          </span>
+                      </a>
+                  </div>
+              </div>
+          </div>
+          <div class="table-responsive text-nowrap">
+            <div class="card">
+                <div class="card-datatable table-responsive pt-0">
+                  <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+
+                    <table class="datatables-basic table table-bordered dataTable no-footer dtr-column" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" style="width: 1384px;">
+                        <colgroup>
+                            <col span="1" style="width: 10%;">
+                            <col span="1" style="width: 20%;">
+                            <col span="1" style="width: 20%;">
+                            <col span="1" style="width: 20%;">
+                            <col span="1" style="width: 10%;">
+                         </colgroup>
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title (UZ)</th>
+                            <th>Title (RU)</th> 
+                            <th>Elonlar</th>
+                            <th>Actions</th>
+                          </tr>
+                    </thead>
+                    <tbody>
+                        <tbody class="table-border-bottom-0">
+                            {% for category in categories.items %}
+                            <tr>
+                                <td>{{category.id}}</td>
+                                <td>
+                                    <b>{{ category.title.title_uz}}</b>
+                                </td>
+                                <td>
+                                    {{ category.title.title_ru}}
+                                </td>
+                                <td><strong>0</strong></td>
+                              <td>
+                                  <a href="{% url 'dashboard:category-edit' category_id=category.id%}" type="button" class="btn btn-warning">
+                                      <span class="bx bx-edit-alt me-1"></span>
+                                  </a>
+                                  <a href="{% url 'dashboard:category-delete' category_id=category.id%}"  type="button" class="btn btn-danger">
+                                    <span class="bx bx-trash me-1"></span>
+                                </a>
+                              </td>
+                            </tr>
+                                {% if category.children %}
+                                {% for children_cat in category.children %}
+                                     <tr>
+                                        <td>{{children_cat.id}}</td>
+                                        <td>
+                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ children_cat.title.title_uz}}
+                                        </td>
+                                        <td>
+                                            {{ children_cat.title.title_ru}}
+                                        </td>
+                                        <td><strong>0</strong></td>
+                                      <td>
+                                          <a href="{% url 'dashboard:category-edit' category_id=children_cat.id%}" type="button" class="btn btn-warning">
+                                              <span class="bx bx-edit-alt me-1"></span>
+                                          </a>
+                                          <a href="{% url 'dashboard:category-delete' category_id=children_cat.id%}"  type="button" class="btn btn-danger">
+                                            <span class="bx bx-trash me-1"></span>
+                                        </a>
+                                      </td>
+                                    </tr>
+                                {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                          </tbody>
+                    </tbody>
+                  </table>
+
+            </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-backdrop fade"></div>
+    </div>
+
+  </div> 
+{% endblock content %}
+{% block javascript %}
+
+
+{% endblock javascript %}

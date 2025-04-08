@@ -1,0 +1,72 @@
+{% extends 'web3/base.html'%}
+{% load static %}
+{% load i18n %}
+{% block content %}
+
+<div class="wrapper">
+  <section class="section__control">
+    <div class="general__container">
+      <div class="control">
+        <a href="#" onclick="history.go(-1)" class="control__back">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.5 10L12.5 15L17.5 20" stroke="#FF1700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <!-- /.control__back -->
+        
+      </div>
+      <!-- /.progress -->
+    </div>
+    <!-- /.general__container -->
+    <div class="control__progress">
+      <span class="progress" style="width: 80%;"></span>
+      <!-- /.progress -->
+    </div>
+    <!-- /.control__progress -->
+  </section>
+  <!-- /.section__progress -->
+  <section class="section__search">
+    <div class="general__container">
+      <h2 class="general__title">{% translate 'select_disc' %}</h2>
+      <!-- /.general__title -->
+      <form action="" class="search__form">
+        
+        <!-- /.search__box -->
+        <button type="reset" class="search__reset" style="display: none">Bekor qilish</button>
+      </form>
+    </div>
+    <!-- /.general__container -->
+  </section>
+  <!-- /.section__search -->
+  <section class="section__config">
+    <div class="general__container">
+      <div class="config">
+        <div class="config__box">
+          <!-- /.general__subtitle -->
+          <div class="general__list">
+            {% for district in districts %}
+            <a href="{% url 'web3:add-phone' district_id=district.id %}" class="general__list-item">
+              <span class="general__circle">
+                <span class="title">{{district.name_uz.0}}</span>
+                <!-- /.title -->
+              </span>
+              <!-- /.general__circle -->
+              <span class="general__name">{% if LANGUAGE_CODE == 'uz' %}{{district.name_uz}}{% else %}{{district.name_ru}}{% endif %}</span>
+              <!-- /.general__name -->
+              <!-- /.general__check -->
+            </a>
+            {% endfor %}
+          </div>
+          <!-- /.general__list -->
+        </div>
+        <!-- /.config__box -->
+      </div>
+      <!-- /.config -->
+    </div>
+    <!-- /.general__container -->
+  </section>
+  <!-- /.section__config -->
+
+</div>
+<!-- /.wrapper -->
+{% endblock content %}

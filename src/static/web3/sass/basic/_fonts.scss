@@ -1,0 +1,45 @@
+@font-face {
+    font-family: 'TTCommons-R';
+    src: url('../css/font/TTCommons/TTCommons-Regular.eot');
+    src: local('TT Commons Regular'), local('TTCommons-Regular'),
+    url('../css/font/TTCommons/TTCommons-Regular.eot?#iefix') format('embedded-opentype'),
+    url('../css/font/TTCommons/TTCommons-Regular.woff2') format('woff2'),
+    url('../css/font/TTCommons/TTCommons-Regular.woff') format('woff'),
+    url('../css/font/TTCommons/TTCommons-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'TTCommons-DB';
+    src: url('../css/font/TTCommons/TTCommons-DemiBold.eot');
+    src: local('TT Commons DemiBold'), local('TTCommons-DemiBold'),
+    url('../css/font/TTCommons/TTCommons-DemiBold.eot?#iefix') format('embedded-opentype'),
+    url('../css/font/TTCommons/TTCommons-DemiBold.woff2') format('woff2'),
+    url('../css/font/TTCommons/TTCommons-DemiBold.woff') format('woff'),
+    url('../css/font/TTCommons/TTCommons-DemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'TTCommons-M';
+    src: url('../css/font/TTCommons/TTCommons-Medium.eot');
+    src: local('TT Commons Medium'), local('TTCommons-Medium'),
+    url('../css/font/TTCommons/TTCommons-Medium.eot?#iefix') format('embedded-opentype'),
+    url('../css/font/TTCommons/TTCommons-Medium.woff2') format('woff2'),
+    url('../css/font/TTCommons/TTCommons-Medium.woff') format('woff'),
+    url('../css/font/TTCommons/TTCommons-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TTCommons-L';
+    src: url('../css/font/TTCommons/TTCommons-Light.eot');
+    src: local('TT Commons Light'), local('TTCommons-Light'),
+    url('../css/font/TTCommons/TTCommons-Light.eot?#iefix') format('embedded-opentype'),
+    url('../css/font/TTCommons/TTCommons-Light.woff2') format('woff2'),
+    url('../css/font/TTCommons/TTCommons-Light.woff') format('woff'),
+    url('../css/font/TTCommons/TTCommons-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'libs/datatables-bs5/datatables.bootstrap5.css'%}" />
+<link rel="stylesheet" href="{% static 'libs/datatables-responsive-bs5/responsive.bootstrap5.css'%}" />
+<link rel="stylesheet" href="{% static 'libs/datatables-buttons-bs5/buttons.bootstrap5.css'%}" />
+<link rel="stylesheet" href="{% static 'libs/select2/select2.css'%}" />
+<link rel="stylesheet" href="{% static 'libs/formvalidation/dist/css/formValidation.min.css'%}" />
+{% endblock css %}
+
+{% block content %}
+  <div class="layout-page">
+
+    <!-- Content wrapper -->
+    <div class="content-wrapper">
+      <!-- Content -->
+
+      <div class="container-xxl flex-grow-1 container-p-y">
+
+        <!-- Users List Table -->
+        <div class="card">
+          <div class="card-header border-bottom">
+            <h5 class="card-title">Foydalanuvchilar</h5>
+          </div>
+          <div class="card-datatable table-responsive">
+            <table class="datatables-users table border-top">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>User</th>
+                  <th>Telefon Raqam</th>
+                  <th>Chat ID </th>
+                  <th> Qo'shilgan vaqti</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="content-backdrop fade"></div>
+    </div>
+    <!-- Content wrapper -->
+  </div>
+{% endblock content %}
+
+
+
+{% block javascript %}
+<script src="{% static 'libs/moment/moment.js'%}"></script>
+<script src="{% static 'libs/datatables/jquery.dataTables.js'%}"></script>
+<script src="{% static 'libs/datatables-bs5/datatables-bootstrap5.js'%}"></script>
+<script src="{% static 'libs/datatables-responsive/datatables.responsive.js'%}"></script>
+<script src="{% static 'libs/datatables-responsive-bs5/responsive.bootstrap5.js'%}"></script>
+<script src="{% static 'libs/datatables-buttons/datatables-buttons.js'%}"></script>
+<script src="{% static 'libs/datatables-buttons-bs5/buttons.bootstrap5.js'%}"></script>
+<script src="{% static 'libs/jszip/jszip.js'%}"></script>
+<script src="{% static 'libs/pdfmake/pdfmake.js'%}"></script>
+<script src="{% static 'libs/datatables-buttons/buttons.html5.js'%}"></script>
+<script src="{% static 'libs/datatables-buttons/buttons.print.js'%}"></script>
+<script src="{% static 'libs/select2/select2.js'%}"></script>
+<script src="{% static 'libs/formvalidation/dist/js/FormValidation.min.js'%}"></script>
+<script src="{% static 'libs/formvalidation/dist/js/plugins/Bootstrap5.min.js'%}"></script>
+<script src="{% static 'libs/formvalidation/dist/js/plugins/AutoFocus.min.js'%}"></script>
+<script src="{% static 'libs/cleavejs/cleave.js'%}"></script>
+<script src="{% static 'libs/cleavejs/cleave-phone.js'%}"></script>
+<script src="{% static 'js/app-user-list.js'%}"></script>
+{% endblock javascript %}
+

@@ -1,0 +1,77 @@
+{% extends 'web3/base.html'%}
+{% load static %}
+{% load i18n %}
+{% block css%}
+<style>
+.section__tizer{
+  position: relative;
+}
+  .video{
+    position: absolute;
+    left: 25%;
+    object-fit: cover;
+    border-radius: 10px;
+    z-index: 999;
+    background-color: transparent;
+    /* top: 10%; */
+    margin-top: 100px;
+  }
+  .video source {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    background-color: transparent;
+
+  }
+</style>  
+{% endblock css%}
+{% block content %}
+<div class="wrapper">
+  <section class="section__tizer">
+    <span class="tag general-R">{% translate "welcome" %}</span>
+    <!-- <video width="204" height="55"
+         autoplay
+         loop
+         muted
+         alt="AVTOPIK"
+         data-aos="fade-left"
+         class="video"
+         data-aos-easing="ease">
+        <source src="{% static 'web3/logovideo.gif' %}" >
+        </video> -->
+    <img width="204" height="55"
+         alt="AVTOPIK" data-aos-easing="ease" class="video"
+         src="{% static 'web3/logovideo.gif' %}"
+    >
+
+        <br><br><br>
+    <img src="{% static 'web3/img/bg/bg-tizer.png'%}"
+         alt="AVTOPIK"
+         class="tizer__bg"
+         data-aos="fade-left"
+         data-aos-easing="ease"
+         data-aos-delay="500">
+    <!-- /.tizer__bg -->
+    <div class="general__container">
+      <div class="tizer">
+        <h1 class="general__title" data-aos="fade-up" data-aos-delay="600">{% translate 'Selling' %}</h1>
+        <!-- /.tizer__txt -->
+         <a href="{% url 'web3:add-category' user_id=request.user.id %}" class="tizer__next general-DB">{% translate 'ads_addd' %}</a>
+        <!-- /.tizer__next -->
+      </div>
+      <!-- /.tizer -->
+    </div>
+    <!-- /.general__container -->
+  </section>
+  <!-- /.section__tizer -->
+</div>
+
+<!-- /.wrapper -->
+{% endblock content %}
+{% block javascript %}
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+{% endblock javascript %}
+
+

@@ -1,0 +1,285 @@
+{% extends 'web3/base.html'%}
+{% load static %}
+{% load i18n %}
+{% block content %}
+
+<div class="wrapper">
+  <section class="section__control">
+    <div class="general__container">
+      <div class="control">
+        <a href="#" onclick="history.go(-1)" class="control__back">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.5 10L12.5 15L17.5 20" stroke="#FF1700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <!-- /.control__back -->
+        <!-- <button type="button" class="control__close">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 10L20 20" stroke="#FF1700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M20 10L10 20" stroke="#FF1700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button> -->
+      </div>
+      <!-- /.progress -->
+    </div>
+    <!-- /.general__container -->
+    <div class="control__progress">
+      <span class="progress" style="width: 50%;"></span>
+      <!-- /.progress -->
+    </div>
+    <!-- /.control__progress -->
+  </section>
+  <div id="form-data">
+  <!-- /.section__progress -->
+  {% for field in steps.fields %}
+  {% if field.input_type == 'Text' and field.is_price == False %}
+  <section class="section__mileage">
+    <div class="general__container" id="form-data">
+      <div class="mileage">
+        <h2 class="general__title">{% if LANGUAGE_CODE == 'uz' %}{{field.properties.label.label_uz}}{% else %}{{field.properties.label.label_ru}}{% endif %}</h2>
+        <!-- /.general__title -->
+        <form action="" class="mileage__form form__validator" name="general__form">
+          <label for="mileage__input" class="mileage__box">
+            <input type="text" id="mileage__input" name="{{field.slug}}" required class="general-R general__input" placeholder="">
+          </label>
+          <!-- /.mileage__box -->
+          <p class="general__txt" id="general__txt">{% if LANGUAGE_CODE == 'uz' %}{{field.properties.help.help_uz}}{% else %}{{field.properties.help.help_ru}}{% endif %}</p>
+          <!-- /.general__txt -->
+          <button class="general__next" onclick="onClick('#mileage__input')" type="button">{% translate 'continue' %}</button>
+          <!-- /.general__next -->
+        </form>
+        <!-- /.mileage__form -->
+      </div>
+      <!-- /.mileage -->
+    </div>
+    <!-- /.general__container -->
+  </section>
+  {% elif field.input_type == 'Select' and field.is_price == False %}
+  <section class="section__config">
+    <div class="general__container" >
+      <div class="config">
+        <div class="config__box">
+          <h3 class="general__subtitle">{% if LANGUAGE_CODE == 'uz' %}{{field.properties.label.label_uz}}{% else %}{{field.properties.label.label_ru}}{% endif %}</h3>
+          <!-- /.general__subtitle -->
+          <div class="general__list">
+            {% for value in field.values %}
+            <a style="cursor: pointer;" onclick="CheckValue('{{field.slug}}', '{{value.id}}')" class="general__list-item">
+              <span class="general__circle">
+                {% if children_cat.image %}
+                  <img src="http://127.0.0.1:8000/media/{{value.image}}">
+                {% else %}
+                  <span class="title">{{value.label.label_uz.0}}</span>
+                {% endif %}
+              </span>
+              <!-- /.general__circle -->
+              <span class="general__name">{% if LANGUAGE_CODE == 'uz' %}{{value.label.label_uz}}{% else %}{{value.label.label_ru}}{% endif %}</span>
+              <!-- /.general__check -->
+            </a>
+            {% endfor %}
+          </div>
+          <!-- /.general__list -->
+        </div>
+        <!-- /.config__box -->
+      </div>
+      <!-- /.config -->
+    </div>
+    <!-- /.general__container -->
+  </section>
+  <!-- /.section__config -->
+  {% endif %}
+  {% endfor %}
+</div>
+</div>
+<p  style="display: none;" id="next-url">{{steps.meta.next}}</p>
+
+<!-- /.wrapper -->
+
+{% endblock content %}
+
+{% block javascript %}
+<script>
+  function CheckValue(key, value){
+    var lang = "{{LANGUAGE_CODE}}";
+    $.ajax({
+      type: "GET",
+      url: "{% url 'web3:add-ajax' %}",
+      data: {"key": key, 'value': value},
+      dataType: "json",
+      success: function(response){
+        if ($('#next-url').text()) {
+          url = $('#next-url').text().split("?")
+          $.ajax({
+            type:'GET',
+            url: "https://avtopikbot.uz/add/properties/?" + url[1],
+            success:function(response){
+                if (response['steps']['fields'][0]['input_type'] === 'Text') {
+                  var _html =   `<section class="section__mileage"><div class="general__container"> <div class="mileage">`;
+                        _html += `<h2 class="general__title">`;
+                          if (lang == 'uz'){
+                            _html +=  response['steps']['fields'][0]['properties']['label']['label_uz'] ;
+                          }else{
+                            _html +=  response['steps']['fields'][0]['properties']['label']['label_ru'] ;
+                          }
+                          _html += `</h2>`;
+                        _html += `<label for="mileage__input" class="mileage__box">`;
+                        _html += `<input type="text" id="mileage__input" name="`+response['steps']['fields'][0]['slug']+`" required class="general-R general__input" placeholder="">`;
+                        _html += `</label><p class="general__txt">`; 
+                          if (lang == 'uz') {
+                            _html += response['steps']['fields'][0]['properties']['help']['help_uz'];
+                          }else {
+                            _html += response['steps']['fields'][0]['properties']['help']['help_ru']
+                          }
+                          _html += `</p>`;
+                       _html += `<button class="general__next" id="submit" onclick="onClick('#mileage__input')" type="submit">`;
+                          _html += `{% translate 'continue' %}`
+                        _html += `</button>`;
+                        _html += ` </div></div></div></section>`
+                  $('#form-data').html(_html)
+                  }else if (response['steps']['fields'][0]['input_type'] === 'Select'){
+                      var _html = `<section class="section__config"><div class="general__container"><div class="config"><div class="config__box">`;
+                        _html += `<h3 class="general__subtitle">`;
+                          if (lang == 'uz'){
+                            _html +=  response['steps']['fields'][0]['properties']['label']['label_uz'] ;
+                          }else{
+                            _html +=  response['steps']['fields'][0]['properties']['label']['label_ru'] ;
+                          }
+                          _html += `</h3>`;
+                        _html += `<div class="general__list">`;
+                        for(let i = 0; i < response['steps']['fields'][0]['values'].length; i++){
+                          _html += `<a style="cursor: pointer;" onclick="CheckValue('`+ response['steps']['fields'][0]['slug']+`', '`+response['steps']['fields'][0]['values'][i].id+`')" class="general__list-item">
+                            <span class="general__circle">`;
+                              if (response['steps']['fields'][0]['values'][i].image) {
+                                _html +=  `<img src="https://avtopikbot.uz/media/`+response['steps']['fields'][0]['values'][i].image+`">`;
+                              }else {
+                                _html += `<span class="title">`+response['steps']['fields'][0]['values'][i].label.label_uz[0]+`</span>`;
+                              }
+                            _html += `</span>
+                                <span class="general__name">`;
+                                  if(lang == 'uz'){
+                                    _html += response['steps']['fields'][0]['values'][i].label.label_uz;
+                                  }else{
+                                    _html += response['steps']['fields'][0]['values'][i].label.label_ru;
+                                  }
+                                  _html += `</span> </a>`;
+                        }
+                      _html += `</div> </div> </div> </div>  </section>`;
+                      $('#form-data').html(_html)
+                  }
+                  if (response['steps']['meta']['next']) {
+                    $('#next-url').text(response['steps']['meta']['next']);
+                  }else{
+                    $('#next-url').text('');
+                  }
+              }
+          })  
+        }else{
+          if (lang == 'uz') {
+            window.location.replace(window.location.origin + "/add/description/")
+          }else {
+            window.location.replace(window.location.origin + "/ru/add/description/")
+          }
+        }
+      },
+      error: function (err) {
+          console.error("Error");
+      }
+    });
+  };
+  
+  function onClick(elem) {
+    var $this = $(elem);
+    var val = $this.val();
+    if (val == '') {
+        document.getElementById('general__txt').style.color = "#ff1700";
+        document.getElementById('general__txt').style.fontSize = "15px";
+        document.getElementById('general__txt').innerText = "Ma'lumot kiriting!"
+    } else {
+      var lang = "{{LANGUAGE_CODE}}";
+      $.ajax({
+      type: "GET",
+      url: "{% url 'web3:add-ajax' %}",
+      data: {"key": document.querySelector("#mileage__input").name, 'value': val},
+      dataType: "json",
+      success: function(response){
+        if ($('#next-url').text()) {
+          url = $('#next-url').text().split("?")
+          $.ajax({
+            type:'GET',
+            url: "https://avtopikbot.uz/add/properties/?" + url[1],
+            success:function(response){
+                if (response['steps']['fields'][0]['input_type'] === 'Text') {
+                  var _html =   `<section class="section__mileage"><div class="general__container"> <div class="mileage">`;
+                        _html += `<h2 class="general__title">`;
+                          if (lang == 'uz'){
+                            _html +=  response['steps']['fields'][0]['properties']['label']['label_uz'] ;
+                          }else{
+                            _html +=  response['steps']['fields'][0]['properties']['label']['label_ru'] ;
+                          }
+                          _html += `</h2>`;
+                        _html += `<label for="mileage__input" class="mileage__box">`;
+                        _html += `<input type="text" id="mileage__input" name="`+response['steps']['fields'][0]['slug']+`" required class="general-R general__input" placeholder="">`;
+                        _html += `</label><p class="general__txt">`
+                          if (lang == 'uz') {
+                            _html += response['steps']['fields'][0]['properties']['help']['help_uz'];
+                          }else {
+                            _html += response['steps']['fields'][0]['properties']['help']['help_ru']
+                          }
+                          _html += `</p>`;
+                       _html += `<button class="general__next" id="submit" onclick="onClick('#mileage__input')" type="submit">`;
+                        _html += `{% translate 'continue' %}`
+                        _html += `</button>`;
+                        _html += ` </div></div></div></section>`
+                  $('#form-data').html(_html)
+                  }else if (response['steps']['fields'][0]['input_type'] === 'Select'){
+                      var _html = `<section class="section__config"><div class="general__container"><div class="config"><div class="config__box">`;
+                        _html += `<h3 class="general__subtitle">`;
+                          if (lang == 'uz'){
+                            _html +=  response['steps']['fields'][0]['properties']['label']['label_uz'] ;
+                          }else{
+                            _html +=  response['steps']['fields'][0]['properties']['label']['label_ru'] ;
+                          }
+                          _html += `</h3>`;
+                        _html += `<div class="general__list">`;
+                          for(let i = 0; i < response['steps']['fields'][0]['values'].length; i++){
+                          _html += `<a style="cursor: pointer;" onclick="CheckValue('`+ response['steps']['fields'][0]['slug']+`', '`+response['steps']['fields'][0]['values'][i].id+`')" class="general__list-item">
+                            <span class="general__circle">`;
+                              if (response['steps']['fields'][0]['values'][i].image) {
+                                _html +=  `<img src="https://avtopikbot.uz/media/`+response['steps']['fields'][0]['values'][i].image+`">`;
+                              }else {
+                                _html += `<span class="title">`+response['steps']['fields'][0]['values'][i].label.label_uz[0]+`</span>`;
+                              }
+                            _html += `</span>
+                                <span class="general__name">`;
+                                  if(lang == 'uz'){
+                                    _html += response['steps']['fields'][0]['values'][i].label.label_uz;
+                                  }else{
+                                    _html += response['steps']['fields'][0]['values'][i].label.label_ru;
+                                  }
+                                  _html += `</span> </a>`;
+                        }
+                        _html += `</div> </div> </div> </div>  </section>`;
+                        $('#form-data').html(_html)
+                  }
+                  if (response['steps']['meta']['next']) {
+                    $('#next-url').text(response['steps']['meta']['next']);
+                  }else{
+                    $('#next-url').text('');
+                  }
+              }
+          })  
+        }else{
+          if (lang == 'uz') {
+            window.location.replace(window.location.origin + "/add/description/")
+          }else {
+            window.location.replace(window.location.origin + "/ru/add/description/")
+          }
+        }
+      },
+      error: function (err) {
+          console.error("Error");
+        }
+      });
+    }
+  }
+</script>
+{% endblock javascript %}

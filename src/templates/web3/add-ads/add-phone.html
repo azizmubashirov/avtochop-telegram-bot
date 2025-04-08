@@ -1,0 +1,67 @@
+
+{% extends 'web3/base.html'%}
+{% load static %}
+{% load i18n %}
+{% block content %}
+
+<div class="wrapper">
+  <section class="section__control">
+    <div class="general__container">
+      <div class="control">
+        <a href="#" onclick="history.go(-1)" class="control__back">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.5 10L12.5 15L17.5 20" stroke="#FF1700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <!-- /.control__back -->
+       
+      </div>
+      <!-- /.progress -->
+    </div>
+    <!-- /.general__container -->
+    <div class="control__progress">
+      <span class="progress" style="width: 85%;"></span>
+      <!-- /.progress -->
+    </div>
+    <!-- /.control__progress -->
+  </section>
+  <!-- /.section__progress -->
+
+  <section class="section__tel">
+    <div class="general__container">
+      <div class="tel">
+        <h2 class="general__title">{% translate 'phone_number' %}</h2>
+        <!-- /.general__title -->
+        <form action="{% url 'web3:add-phone-id' %}" class="tel__form form__validator" name="general__form" method="post">
+          {% csrf_token %}
+          <label for="tel__input" class="tel__box">
+            <input type="text"
+                   id="tel__input"
+                   name="tel-1"
+                   required
+                   class="form__tel general-R general__input"
+                   placeholder="+998 (99) 999-99-99"
+                   pattern="^[0-9-+\s()]*$"
+                   value="{{ request.user.phone_number}}" disabled>
+          </label>
+          <!-- /.mileage__box -->
+          <p class="general__txt">{% translate 'phone_number_desc' %}</p>
+          <!-- /.general__txt -->
+          <div class="tel__adding"></div>
+          <!-- /.tel__adding -->
+          <span class="tel__add general-R">{% translate 'phone_number_add' %}</span>
+          <!-- /.tel__add -->
+          <button class="general__next" id="submit" type="submit">{% translate 'continue' %}</button>
+          <!-- /.general__next -->
+        </form>
+        <!-- /.mileage__form -->
+      </div>
+      <!-- /.mileage -->
+    </div>
+    <!-- /.general__container -->
+  </section>
+  <!-- /.section__mileage -->
+
+</div>
+<!-- /.wrapper -->
+{% endblock content %}

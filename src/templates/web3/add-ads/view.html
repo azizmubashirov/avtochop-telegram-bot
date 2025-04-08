@@ -1,0 +1,118 @@
+
+{% extends 'web3/base.html'%}
+{% load static %}
+{% load i18n %}
+{% block content %}
+
+<div class="wrapper">
+  <section class="section__control">
+    <div class="general__container">
+      <div class="control">
+        <a href="#" onclick="history.go(-1)" class="control__back">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.5 10L12.5 15L17.5 20" stroke="#FF1700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <!-- /.control__back -->
+       
+      </div>
+      <!-- /.progress -->
+    </div>
+    <!-- /.general__container -->
+    <div class="control__progress">
+      <span class="progress" style="width: 98%;"></span>
+      <!-- /.progress -->
+    </div>
+    <!-- /.control__progress -->
+  </section>
+  <!-- /.section__progress -->
+
+  <section class="section__finished">
+    <div class="general__container">
+      <h2 class="general__title">{% translate 'view_ad' %}</h2>
+      <!-- /.general__title -->
+      <form action="" class="finiched__form" method="post">
+        {% csrf_token %}
+        <div class="swiper finished__slider">
+          <div class="swiper-wrapper">
+            {% for image in data.images %}
+            <div class="swiper-slide">
+              <div class="finished__item">
+                <img src="{{image}}" alt="">
+              </div>
+              <!-- /.finished__item -->
+            </div>
+            {% endfor %}
+          </div>
+          <div class="finished__slider-prev finished__slider-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14 8L10 12L14 16" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="finished__slider-next finished__slider-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 8L14 12L10 16" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="finished__slider-pagination"></div>
+        </div>
+
+        <div class="finished__list">
+          {% for key, value in properties.items %}
+          <li>
+            <p class="general-R">{{key}}</p>
+            <!-- /.general-R -->
+            <input class="general-M" value="{{value}}" disabled>
+            <!-- /.general-M -->
+          </li>
+          {% endfor %}
+
+          <li>
+            <p class="general-R">Narxi</p>
+            <!-- /.general-R -->
+            {% if data.currency == 1 %}
+            <input class="general-M" value="{{data.price}} so'm" disabled>
+            {% else %}
+            <input class="general-M" value="{{data.price}} y.e" disabled>
+            {% endif %}
+            <!-- /.general-M --></li>
+            <li>
+              <p class="general-R">Kami</p>
+              <!-- /.general-R -->
+              {% if data.torg == 1 %}
+              <input class="general-M" value="Bor" disabled>
+              {% else %}
+              <input class="general-M" value="Yo'q" disabled>
+              {% endif %}
+              <!-- /.general-M --></li>
+          <li>
+            <p class="general-R">Telefon raqam</p>
+            <!-- /.general-R -->
+            <input class="general-M" value="{{ data.contact.tel_1}}" disabled>
+            <!-- /.general-M --></li>
+          {% if data.contact.tel_2 %}
+          <li>
+            <p class="general-R">Telefon raqam</p>
+            <!-- /.general-R -->
+            <input class="general-M" value="{{ data.contact.tel_2}}" disabled>
+            <!-- /.general-M --></li>
+          {% endif %}
+        </div>
+        <!-- /.finished__list -->
+        <div class="finished__comment">
+          <textarea class="comment general-R" disabled>{{data.description }}</textarea>
+          <!-- /.comment -->
+        </div>
+        <!-- /.finished__comment -->
+        <button type="submit" class="general__next finished__submit">{% translate 'send_checked' %}</button>
+      </form>
+
+    </div>
+    <!-- /.general__container -->
+  </section>
+  <!-- /.section__finished -->
+
+</div>
+<!-- /.wrapper -->
+
+{% endblock content %}

@@ -1,0 +1,134 @@
+.popup {
+    &__btn {
+
+    }
+    &__back {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 99;
+        display: none;
+    }
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-width: 100%;
+    background-color: var(--main-color-white);
+    z-index: 100;
+    padding: 1.5rem;
+    display: none;
+    border-radius: 1rem 1rem 0 0;
+    .close {
+        position: absolute;
+        top: -4rem;
+        left: 50%;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        transform: translateX(-50%);
+        @include flexCenter();
+        cursor: pointer;
+        background-color: var(--main-color-red);
+        svg {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            path, circle {
+                transition: .3s all;
+            }
+        }
+        &:hover {
+            svg {
+                circle {
+                    fill: var(--main-color-black);
+                }
+                path {
+                    stroke: var(--main-color-white);
+                }
+            }
+        }
+    }
+    &__container {
+
+    }
+    &__row {
+        @include flexStart();
+    }
+    &__pic {
+        position: relative;
+        width: 6rem;
+        margin-right: 1rem;
+        height: 6rem;
+        border-radius: .5rem;
+        img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border-radius: .5rem;
+            object-fit: cover;
+        }
+    }
+    &__price {
+        font-size: .9rem;
+        color: var(--main-color-black);
+        margin-bottom: .5rem;
+    }
+    &__name {
+        font-size: .9rem;
+        color: var(--main-color-black);
+        margin-bottom: .3rem;
+    }
+    &__info {
+        color: #9D9D9D;
+        font-size: .8rem;
+        margin-bottom: 1rem;
+    }
+    &__txt {
+        color: var(--main-color-red);
+        font-size: .9rem;
+        margin-bottom: 0;
+    }
+    &__config {
+        &-checkbox {
+            border-radius: .5rem;
+            padding: .75rem;
+            background-color: #F6F8F9;
+            margin-bottom: .5rem;
+            input {
+                display: none;
+            }
+            .general {
+                &__circle {
+                    background-color: var(--main-color-white);
+                }
+                &__checked {
+                    transition: .3s all;
+                    opacity: 0;
+                    visibility: hidden;
+                }
+            }
+            input:checked ~ .general__checked {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    }
+    //==========POPUP SUCCESS=============
+    &__success {
+
+    }
+    //==========POPUP SUCCESS=============
+    &__form {
+
+    }
+}
+
+@media (max-width: 900.98px) {
+    .popup {
+
+    }
+}

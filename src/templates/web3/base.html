@@ -1,0 +1,52 @@
+<!doctype html>
+{% load static %}
+{% load i18n %}
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <title>AVTOPIK</title>
+  <meta name="description" content="">
+  <meta name="theme-color" content="#FF1700">
+  <meta name="keywords" content=""/>
+  <meta name="author" content="Novas"/>
+  <meta name="google-site-verification" content=""/>
+  <!--=======css Links======-->
+  <!--    <link rel="manifest" href="img/favicon/site.webmanifest">-->
+  <!-- App favicon -->
+  <link rel="shortcut icon" href="">
+
+  <link rel="stylesheet" href="{% static 'web3/css/normalize.css'%}">
+  <link rel="stylesheet" href="{% static 'web3/css/fancybox.css'%}">
+  <link rel="stylesheet" href="{% static 'web3/css/aos.css'%}">
+  <link rel="stylesheet" href="{% static 'web3/css/swiper.min.css'%}">
+  <link rel="stylesheet" href="{% static 'web3/css/avtopik.css'%}">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  {% block css%}
+  {% endblock css%}
+</head>
+<body>
+    {% block content %}
+
+        {% get_current_language as LANGUAGE_CODE %}
+        {% get_available_languages as LANGUAGES %}
+        {% get_language_info_list for LANGUAGES as languages %}
+        
+    {% endblock content %}
+ 
+
+<script src="{% static 'web3/js/jquery-3.6.0.min.js'%}"></script>
+<script src="{% static 'web3/js/aos.js'%}"></script>
+<script src="{% static 'web3/js/main.js'%}"></script>
+<script src="{% static 'web3/js/inputmask.min.js'%}"></script>
+<script src="{% static 'web3/js/swiper.min.js'%}"></script>
+<script type="text/javascript">
+  Telegram.WebApp.expand();
+</script>
+{% block javascript %}
+
+{% endblock javascript %}
+</body>
+</html>

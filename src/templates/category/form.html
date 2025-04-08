@@ -1,0 +1,211 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link href="{% static 'libs/multiselect/multi-select.css' %}"  rel="stylesheet" type="text/css" />
+<link href="{% static 'libs/select2/select2.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock css %}
+{% block content %}
+<div class="layout-page">
+    <!-- Content wrapper -->
+    <div class="content-wrapper">
+      <!-- Content -->
+
+      <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="py-3 breadcrumb-wrapper mb-4">
+        </h4>
+        <div class="col-md-12">
+            <div class="card mb-4">
+             <h5 class="card-header">Kategoriya qo'shish</h5>
+             <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row card-body col-md-12">
+                    <div class="col-md-6">
+                        <div class="row mb-3">
+                            <div class="form-group col-md-6">
+                                {{ form.title_uz.errors }}
+                                <label class="form-control-label" for="{{ form.title_uz.id_for_label }}">{{ form.title_uz.label }}</label>
+                                {{ form.title_uz }}
+                                
+                            </div>
+                            <div class="form-group col-md-6">
+                                {{ form.title_ru.errors }}
+                                <label class="form-control-label" for="{{ form.title_ru.id_for_label }}">{{ form.title_ru.label }}</label>
+                                {{ form.title_ru }}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="form-group col-md-6">
+                                {{ form.seo_title_uz.errors }}
+                                <label class="form-control-label" for="{{ form.seo_title_uz.id_for_label }}">{{ form.seo_title_uz.label }}</label>
+                                {{ form.seo_title_uz }}
+                                
+                            </div>
+                            <div class="form-group col-md-6">
+                                {{ form.seo_title_ru.errors }}
+                                <label class="form-control-label" for="{{ form.seo_title_ru.id_for_label }}">{{ form.seo_title_ru.label }}</label>
+                                {{ form.seo_title_ru }}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="form-group col-md-6">
+                                {{ form.seo_desc_uz.errors }}
+                                <label class="form-control-label" for="{{ form.seo_desc_uz.id_for_label }}">{{ form.seo_desc_uz.label }}</label>
+                                {{ form.seo_desc_uz }}
+                                
+                            </div>
+                            <div class="form-group col-md-6">
+                                {{ form.seo_desc_ru.errors }}
+                                <label class="form-control-label" for="{{ form.seo_desc_ru.id_for_label }}">{{ form.seo_desc_ru.label }}</label>
+                                {{ form.seo_desc_ru }}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="form-group col-md-6">
+                                {{ form.sorting.errors }}
+                                <label class="form-control-label" for="{{ form.sorting.id_for_label }}">{{ form.sorting.label }}</label>
+                                {{ form.sorting }}
+                                
+                            </div>
+                            <div class="form-group col-md-6">
+                                {{ form.image.errors }}
+                                <label class="form-control-label" for="{{ form.image.id_for_label }}">{{ form.image.label }}</label>
+                                {{ form.image }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row mb-3">
+                            <div class="form-group col-md-12">
+                                {{ form.parent.errors }}
+                                <label class="form-control-label" for="{{ form.parent.id_for_label }}">{{ form.parent.label }}</label>
+                                {{ form.parent }}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="form-group col-md-12">
+                                <div id="id_col_for_entities">
+                                <div class="form-group">
+                                    {{ form.category_entities.errors }}
+                                    <label class="form-control-label" for="{{ form.category_entities.id_for_label }}">{{ form.category_entities.label }}</label>
+                                    {{ form.category_entities }}
+                                    <input type="hidden" name="multiple_value" id="multiple_value"  />
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="pt-4">
+                        <button type="submit" class="btn btn-primary me-sm-3 me-1">Save</button>
+                        <a href="{% url 'dashboard:category-list' %}" type="reset" class="btn btn-label-secondary">Cancel</a>
+                    </div>
+                </div>
+            </form>
+               
+              </div>
+            </div>
+        </div>
+    </div>
+</div>  
+{% endblock content %}
+{% block javascript %}
+<script src="{% static 'libs/multiselect/jquery.multi-select.js' %}"></script>
+<script src="{% static 'libs/select2/select2.min.js' %}"></script>
+<script src="{% static 'libs/jquery-quicksearch/jquery.quicksearch.min.js' %}"></script>
+<script>
+$("#my_multi_select3").multiSelect(
+    {
+    selectableHeader:"<input type='text' class='form-control search-input' autocomplete='off' placeholder='Qidirish...'>",
+    selectionHeader:"<input type='text' class='form-control search-input' autocomplete='off' placeholder='Qidirish...'>",
+    afterInit:function(e){
+        var t=this,
+        a=t.$selectableUl.prev(),
+        n=t.$selectionUl.prev(),
+        s="#"+t.$container.attr("id")+" .ms-elem-selectable:not(.ms-selected)",
+        r="#"+t.$container.attr("id")+" .ms-elem-selection.ms-selected";
+        t.qs1=a.quicksearch(s).on("keydown",function(e){
+            if(40===e.which)return t.$selectableUl.focus(),!1
+        }),
+        t.qs2=n.quicksearch(r).on("keydown",function(e){
+            if(40==e.which)return t.$selectionUl.focus(),!1
+        })
+        e.css("max-width", "100%");
+        e.css("width", "100%");
+    },
+    afterSelect: function(value, text){
+        var get_val = $("#multiple_value").val();
+        var hidden_val = (get_val != "") ? get_val+"," : get_val;
+        $("#multiple_value").val(hidden_val+""+value);
+        this.qs1.cache(),
+        this.qs2.cache()
+    },
+    afterDeselect: function(value, text){
+        var get_val = $("#multiple_value").val();
+        var new_val = get_val.replace(value, "");
+        $("#multiple_value").val(new_val);
+        this.qs1.cache(),
+        this.qs2.cache()
+    },
+    keepOrder: true
+});
+const selected = "{{ form.get_selected_attributes }}".split(" ");
+if(selected.length > 0) {
+  $.each(selected, function(index, data){
+    $('#my_multi_select3').multiSelect("select", data);
+  })
+}
+</script>
+<script>
+    $("#id_parent").change(function(){
+        var selected_parent = $("#id_parent option:selected").val();
+        if (selected_parent == ""){
+            $("#id_col_for_channel").html(`<div class="form-group">{{ form.channel_title.errors }}<label class="form-control-label" for="{{ form.channel_title.id_for_label }}">{{ form.channel_title.label }}</label>{{ form.channel_title }}</div><div class="row"><div class="form-group col-md-6">{{ form.channel_url.errors }}<label class="form-control-label" for="{{ form.channel_url.id_for_label }}">{{ form.channel_url.label }}</label>{{ form.channel_url }}</div><div class="form-group col-md-6">{{ form.channel_id.errors }}<label class="form-control-label" for="{{ form.channel_id.id_for_label }}">{{ form.channel_id.label }}</label>{{ form.channel_id }}</div></div>`);
+        }else{
+            $("#id_col_for_channel").html("");
+        }
+        $("#id_col_for_entities").html(`<div class="form-group">{{ form.category_entities.errors }}<label class="form-control-label" for="{{ form.category_entities.id_for_label }}">{{ form.category_entities.label }}</label>{{ form.category_entities }}<input type="hidden" name="multiple_value" id="multiple_value"  /></div>`);
+        $("#my_multi_select3").multiSelect(
+            {
+            buttonWidth: '1000px',
+            selectableHeader:"<input type='text' class='form-control search-input' autocomplete='off' placeholder='Qidirish...'>",
+            selectionHeader:"<input type='text' class='form-control search-input' autocomplete='off' placeholder='Qidirish...'>",
+            afterInit:function(e){
+                var t=this,
+                a=t.$selectableUl.prev(),
+                n=t.$selectionUl.prev(),
+                s="#"+t.$container.attr("id")+" .ms-elem-selectable:not(.ms-selected)",
+                r="#"+t.$container.attr("id")+" .ms-elem-selection.ms-selected";
+                t.qs1=a.quicksearch(s).on("keydown",function(e){
+                    if(40===e.which)return t.$selectableUl.focus(),!1
+                }),
+                t.qs2=n.quicksearch(r).on("keydown",function(e){
+                    if(40==e.which)return t.$selectionUl.focus(),!1
+                })
+                e.css("max-width", "100%");
+                e.css("width", "100%");
+            },
+            afterSelect: function(value, text){
+                var get_val = $("#multiple_value").val();
+                var hidden_val = (get_val != "") ? get_val+"," : get_val;
+                $("#multiple_value").val(hidden_val+""+value);
+                this.qs1.cache(),
+                this.qs2.cache()
+            },
+            afterDeselect: function(value, text){
+                var get_val = $("#multiple_value").val();
+                var new_val = get_val.replace(value, "");
+                $("#multiple_value").val(new_val);
+                this.qs1.cache(),
+                this.qs2.cache()
+            },
+            keepOrder: true
+        });
+        const selected = "{{ form.get_selected_attributes }}".split(" ");
+        if(selected.length > 0) {
+          $.each(selected, function(index, data){
+            $('#my_multi_select3').multiSelect("select", data);
+          })
+        }
+    });
+</script>
+
+{% endblock javascript %}

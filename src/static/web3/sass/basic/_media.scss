@@ -1,0 +1,94 @@
+//==========Media===========
+@media (min-width: 2000.98px) {
+  :root {
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 1930.98px) {
+    :root {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 1800.98px) {
+  :root {
+    font-size: 19px;
+  }
+}
+@media (max-width: 1700.98px) {
+  :root {
+    font-size: 17px;
+  }
+}
+@media (max-width: 1600.98px) {
+  :root {
+    font-size: 16px;
+  }
+}
+@media (max-width: 1500.98px) {
+  :root {
+    font-size: 14px;
+  }
+}
+@media (max-width: 1400.98px) {
+  :root {
+    font-size: 13px;
+  }
+}
+@media (max-width: 1100.98px) {
+  :root {
+    font-size: 10px;
+  }
+}
+@media (max-width: 1000.98px) {
+  :root {
+    font-size: 10px;
+  }
+}
+@media (min-width: 901px) {
+    .d__none {
+        display: none;
+    }
+  .wrapper {
+    display: block;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
+@media (max-width: 900.98px) {
+  :root {
+    font-size: 20px;
+  }
+  body {
+    &.on {
+      overflow: hidden;
+    }
+  }
+    .preloader {
+        &__logo {
+            max-width: 25rem;
+        }
+    }
+    .wrapper {
+
+    }
+}
+@media (min-width: 500.98px) {
+  .desc {
+    &-off {
+      display: none;
+    }
+  }
+}
+@media (max-width: 500.98px) {
+  :root {
+    font-size: 20px;
+  }
+}
+@media (max-width: 325.98px) {
+  :root {
+    font-size: 20px;
+  }
+}
+
